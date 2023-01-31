@@ -10,10 +10,23 @@
   },
   "dependencies": {
     "@next/font": "13.1.6",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@openzeppelin/contracts": "^4.8.1",
+    "@rainbow-me/rainbowkit": "^0.8.1",
+    "chai": "^4.3.7",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
+    "ethereum-waffle": "^4.0.9",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.12.6",
     "next": "13.1.6",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "sass": "^1.57.1",
+    "scss": "^0.2.4",
+    "wagmi": "^0.11.2",
+    "web3modal": "^1.9.12"
   }
 }

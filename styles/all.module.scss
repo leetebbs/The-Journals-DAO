@@ -1,0 +1,21 @@
+.app {
+    display: flex;
+    height: 100vh;
+    width: 20%;
+}
+
+.sidebar {
+    padding: 0 2rem;
+    background-color: black;
+    color: white;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 13rem;
+
+        p {
+            margin-top: 3rem;
+        }
+    }
+}
