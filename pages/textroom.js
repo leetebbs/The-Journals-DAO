@@ -1,4 +1,5 @@
 import styles from '../styles/all.module.scss'
+import { useState, useEffect} from 'react'
 
 
 import {
@@ -11,20 +12,35 @@ import PeerVideoAudioElem from "../components/PeerVideoAudioElem";
 import MeVideoElem from "../components/MeVideoElem";
 
 const Textroom = () => {
+
+
+
+  const [joined, setJoined] = useState(false)
+
   const huddleClient = getHuddleClient("dedb4a37e56b492effabc00442e470df4af70a7a08b0d8a23448a936e4942438");
   const peersKeys = useHuddleStore((state) => Object.keys(state.peers));
   const lobbyPeers = useHuddleStore((state) => state.lobbyPeers);
   const roomState = useHuddleStore((state) => state.roomState);
   const recordingState = useHuddleStore((state) => state.recordingState);
   const recordings = useHuddleStore((state) => state.recordings);
-  console.log(roomState)
+  const isStreaming = useHuddleStore((state) =>state.stream )
+ 
 
+
+  useEffect(() => {
+    if (roomState.joined = true){
+      setJoined(true);
+    }
+  console.log("room state", joined)
+  console.log("is streaming", isStreaming)
+  },[])
+ 
   const handleJoin = async () => {
     try {
       await huddleClient.join("test", {
         address: "",
         wallet: "",
-        ens: "tebbo.eth",
+        ens: "",
       });
 
       console.log("joined");
@@ -42,10 +58,12 @@ const Textroom = () => {
     <HuddleClientProvider value={huddleClient}>
     <div >
       <div>
-        <h2 className={`text-${!roomState.joined ? "red" : "green"}`}>
+        {/* <h2 className={`text-${!roomState.joined ? "red" : "green"}`}>
           Room Joined:&nbsp;{roomState.joined.toString()}
-        </h2>
-
+        </h2> */}
+        <div className={styles.video}>
+        <MeVideoElem/>
+        </div>
         {/* <h2>Instructions</h2>
         <ol className="w-fit mx-auto text-left">
           <li>
@@ -68,6 +86,9 @@ const Textroom = () => {
 
       <div>
         <div className="card">
+          <div className={styles.buttonList}>
+
+          
           {/* <button onClick={handleJoin}>Join Room</button> */}
           {/* <MeVideoElem /> */}
           <button onClick={() => connect()}>
@@ -80,7 +101,7 @@ const Textroom = () => {
             Enable Webcam
           </button>
           <button onClick={() => huddleClient.allowAllLobbyPeersToJoinRoom()}>
-            allowAllLobbyPeersToJoinRoom()
+            Allow All To Join()
           </button>
           {/* <button
             onClick={() =>
@@ -95,9 +116,9 @@ const Textroom = () => {
           <button onClick={() => huddleClient.stopRecording({ ipfs: true })}>
             stopRecording()
           </button> */}
+          </div>
         </div>
-
-        <MeVideoElem/>
+        
 
         {lobbyPeers[0] && <h2>Lobby Peers</h2>}
         <div>
@@ -108,7 +129,7 @@ const Textroom = () => {
 
         {peersKeys[0] && <h2>Peers</h2>}
 
-        <div className="peers-grid">
+        <div className={styles.peersgrid}>
           {peersKeys.map((key) => (
             <PeerVideoAudioElem key={`peerId-${key}`} peerIdAtIndex={key} />
           ))}

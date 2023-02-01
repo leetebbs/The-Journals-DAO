@@ -56,7 +56,7 @@ const PeerVideoAudioElem = ({ peerIdAtIndex }) => {
   }, [peerMicTrack]);
 
   return (
-    <div style={{ width: "50%" }}>
+    <div style={{ width: "100%" }}>
       <video
         ref={videoRef}
         muted

@@ -1,7 +1,7 @@
 .app {
   display: flex;
   height: 100vh;
-  width: 100%;
+  // width: 100%;
 }
 
 .sidebar {
@@ -21,5 +21,27 @@
 }
 
 .dashboard{
-  width: 100%;
+  width: 100%; 
+}
+
+.buttonList{
+  position: relative;
+  left:39%;
+}
+
+.video{
+  padding-top:50px;
+  margin-left: 45%;
+  margin-right: auto;
+  width:50%;
+  // background-color: aqua;
+}
+.peersgrid {
+  display: grid;
+  grid-template-columns: repeat(4, 300px);
+  grid-column-gap:2px;
+  // grid-template-rows: 1fr 1fr 1fr;
+  // width: 100%;
+  place-items: center;
+  margin-left: 10%;
 }

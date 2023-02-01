@@ -1,5 +1,6 @@
 import { useHuddleStore } from "@huddle01/huddle01-client/store";
 import React, { useEffect, useRef } from "react";
+import styles from '../styles/all.module.scss';
 
 const MeVideoElem = () => {
   const stream = useHuddleStore((state) => state.stream);
@@ -15,12 +16,13 @@ const MeVideoElem = () => {
   }, [stream]);
   return (
     <video 
-      style={{ width: "200%" }}
+      style={{ width: "50%" }}
       ref={videoRef}
       autoPlay
       muted
       playsInline
     ></video>
+    
   );
 };
 
