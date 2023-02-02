@@ -126,11 +126,11 @@ const Textroom = () => {
           </div>
 
           {lobbyPeers[0] && <h2>Lobby Peers {lobbyPeers.length}</h2>}
-          <div>
+          {/* <div>
             {lobbyPeers.map((peer) => (
               <div>{peer.peerId}</div>
             ))}
-          </div>
+          </div> */}
 
           {peersKeys[0] && <h2>Peers</h2>}
 
