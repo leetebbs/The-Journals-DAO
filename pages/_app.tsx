@@ -39,27 +39,27 @@ function MyApp({ Component, pageProps }) {
     },
 }
 
-const Mumbai = { 
-  id: 80001, 
-  name: 'Polygon mumbai', 
-  network: 'Polygon mumbai', 
+const wallaby = { 
+  id: 31415, 
+  name: 'Wallaby testnet', 
+  network: 'Wallaby testnet', 
   nativeCurrency: { 
     decimals: 18, 
-    name: 'MATIC', 
-    symbol: 'MATIC', 
+    name: 'tFIL', 
+    symbol: 'tFIL', 
   }, 
   rpcUrls: { 
-    default: 'https://rpc-mumbai.matic.today', 
+    default: 'https://wallaby.filfox.info/rpc/v0', 
   }, 
   blockExplorers: { 
-    default: { name: 'Polygon PoS Chain Testnet Explorer', url: 'https://mumbai.polygonscan.com/' }, 
+    default: { name: 'Filfox Explorer', url: 'https://wallaby.filfox.info/en' }, 
   }, 
   testnet: true, 
 } 
 
 
 const { chains, provider} = configureChains(
-[hyperspace, Mumbai],
+[hyperspace, wallaby],
 [
   jsonRpcProvider({
     rpc: (chain) => ({

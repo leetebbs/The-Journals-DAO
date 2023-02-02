@@ -1,8 +1,16 @@
+// variables
+
+$background: #121214;
+$pinkColor: #ffcece;
+
+// global
+
 .app {
   display: flex;
   height: 100vh;
-  // width: 100%;
 }
+
+// sidebar
 
 .sidebar {
   padding: 0 2rem;
@@ -12,13 +20,154 @@
   .container {
     display: flex;
     flex-direction: column;
-    margin-top: 13rem;
+    margin-top: 40%;
 
     p {
-      margin-top: 3rem;
+      margin-top: 10%;
+      font-size: 110%;
+    }
+
+    p:hover {
+      color: $pinkColor;
     }
   }
 }
+
+// homepage
+
+.home {
+  padding: 1rem;
+  background-color: $background;
+  color: white;
+  width: 100%;
+
+  h1 {
+    color: $pinkColor;
+  }
+  
+  .daoCard  {
+    border: 0.5px solid $pinkColor;
+    width: 25rem;
+    padding: 0 1rem 1rem 1rem;
+
+    img {
+      width: 100%;
+    }
+
+    .daoName {
+      font-size: 120%;
+      color: $pinkColor;
+      font-weight: 400;
+    }
+
+    button {
+      background-color: none;
+      border: none;
+      font-size: 100%;
+    }
+  }
+}
+
+// proposals
+
+.proposals {
+  padding: 1rem;
+  background-color: $background;
+  color: white;
+  width: 100%;
+
+    .btnDiv {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+
+      .btn {
+        padding: 0.2rem 0.6rem;
+        background-color: tomato;
+        border: none;
+        font-size: 110%;
+      }
+
+      .btn:hover {
+        background-color:rgb(210, 245, 253);
+      }
+    }
+
+    .inputDiv {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+
+      input {
+        font-size: 110%;
+      }
+
+      input::placeholder{
+        color: rgba(57, 56, 56, 0.818);
+        text-align: center;
+    }
+
+      input[type=text]:focus {
+        border: 3px solid #555;
+      }
+
+      button {
+        font-size: 110%;
+        background-color: ghostwhite;
+        border: none;
+      }
+
+      button:hover {
+        background-color:rgb(210, 245, 253);
+      }
+  }
+
+  .card {
+    width: 35rem;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-end; */
+    align-items: flex-start;
+    /* align-content: flex-start; */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.subdiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid rgb(59, 177, 204);
+    border-radius: 0.5rem;
+}
+
+.subdiv>p {
+    margin: 0.7rem;
+}
+.subdiv>h4 {
+    margin: 0.7rem;
+}
+
+.cardbtns {
+    display: flex;
+    justify-content: space-around;
+    width: 30rem;
+}
+
+.cardbtn {
+    padding: 1rem 2rem ;
+    margin: 1.5rem 0rem 0rem 0rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+    background-color:rgb(59, 177, 204) ;
+    color: #000;
+}
+}
+
+// others
 
 .dashboard{
   width: 100%; 

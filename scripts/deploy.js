@@ -1,5 +1,6 @@
 const { ethers } = require("hardhat"); 
 const fs = require("fs"); 
+const { TokenClass } = require("typescript");
 
 async function main() { 
   const contract = await ethers.getContractFactory("PeerReview"); 

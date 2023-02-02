@@ -10,7 +10,7 @@ contract PeerReview is ERC721{
 
     // state variable declarations
 
-    uint joinStake = 5 ether;
+    uint joinStake = 1 ether;
     uint viewFee = 1 ether;
     uint voteTime = 2 days;
     address payable owner;
@@ -37,15 +37,16 @@ contract PeerReview is ERC721{
         bool executed;
         mapping(address => bool) voted;
     }
-    }
+    
 
-    uint numPenaltyProposal;
+    uint public numPenaltyProposal;
 
-    mapping (uint => PenaltyProposal) idToPenalty;
+    mapping (uint => PenaltyProposal) public idToPenalty;
 
     struct Proposal {
-        bytes cid;
+        string cid;
         uint size;
+        address author;
         uint storagePrice;
         uint upvote;
         uint downvote;
@@ -55,9 +56,9 @@ contract PeerReview is ERC721{
         mapping(address => bool) voted;
     }
 
-    uint numProposal;
+    uint public numProposal;
 
-    mapping (uint => Proposal) idToProposal;
+    mapping (uint => Proposal) public idToProposal;
 
     // dao functions
     
@@ -85,13 +86,14 @@ contract PeerReview is ERC721{
 
     // proposal functions
 
-    function createProposal(bytes memory _cid, uint _size) public payable {
-        uint storagePrice; // storage price to be specified;
+    function createProposal(string memory _cid, uint _size) public payable {
+        uint storagePrice = 0; // storage price to be specified;
         require(msg.value == storagePrice, "incorrect storage amount");
         numProposal++;
         Proposal storage proposal = idToProposal[numProposal];
         proposal.cid = _cid;
         proposal.size = _size;
+        proposal.author = msg.sender;
         proposal.storagePrice;
         proposal.deadline = block.timestamp + voteTime;
     }
@@ -137,19 +139,19 @@ contract PeerReview is ERC721{
         PenaltyProposal storage penaltyProposal = idToPenalty[penaltyProposalId];
         require(penaltyProposal.deadline > block.timestamp, "deadline exceeded");
         require(!penaltyProposal.voted[msg.sender], "user already voted");
-        penaltyProposal.upvote++;
+        penaltyProposal.penaltyUpvote++;
     }
 
     function downvotePenalty(uint penaltyProposalId) public onlyDaoMember {
         PenaltyProposal storage penaltyProposal = idToPenalty[penaltyProposalId];
         require(penaltyProposal.deadline > block.timestamp, "deadline exceeded");
         require(!penaltyProposal.voted[msg.sender], "user already voted");
-        penaltyProposal.upvote++;
+        penaltyProposal.penaltyDownvote++;
     }
 
     function executPenalty(uint penaltyProposalId) public onlyDaoMember {
         PenaltyProposal storage penaltyProposal = idToPenalty[penaltyProposalId];
-        DaoMember storage daoMember = addressToDaoMember[user];
+        DaoMember storage daoMember = addressToDaoMember[penaltyProposal.user];
         require(penaltyProposal.deadline <= block.timestamp, "deadline exceeded");
         require(!penaltyProposal.executed, "proposal already executed");
 
@@ -159,7 +161,7 @@ contract PeerReview is ERC721{
             penaltyProposal.penaltyUpvote = 0;
             penaltyProposal.penaltyDownvote = 0;
         }
-        proposal.executed = true;
+        penaltyProposal.executed = true;
     }
 
     function removeFromDao(address user) public onlyDaoMember {
@@ -167,7 +169,7 @@ contract PeerReview is ERC721{
         _burn(nftId);
     }
 
-    // view files for non dao members
+    // view files for CCCCCCCCCnon dao members
 
     function obtainViewship() public payable {
         require(msg.value == viewFee, "incorrect stake amount");
