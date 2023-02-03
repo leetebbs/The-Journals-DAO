@@ -11,6 +11,7 @@ contract PeerReview is ERC721{
     // state variable declarations
 
     uint joinStake = 1 ether;
+    uint proposalFee = 0.1 ether;
     uint viewFee = 1 ether;
     uint voteTime = 2 days;
     address payable owner;
@@ -46,6 +47,7 @@ contract PeerReview is ERC721{
     struct Proposal {
         string cid;
         uint size;
+        string name;
         address author;
         uint storagePrice;
         uint upvote;
@@ -59,6 +61,18 @@ contract PeerReview is ERC721{
     uint public numProposal;
 
     mapping (uint => Proposal) public idToProposal;
+
+
+    struct Reviewed {
+        string cid;
+        uint size;
+        string name;
+        address author;
+    }
+
+    uint public numReviewed;
+
+    mapping (uint => Reviewed) public idToReviewed;
 
     // dao functions
     
@@ -84,13 +98,14 @@ contract PeerReview is ERC721{
 
     // proposal functions
 
-    function createProposal(string memory _cid, uint _size) public payable returns (uint){
+    function createProposal(string memory _cid, uint _size, string memory _name) public payable returns (uint){
         uint storagePrice = 0; // storage price to be specified;
-        require(msg.value == storagePrice, "incorrect storage amount");
+        require(msg.value == proposalFee, "incorrect storage amount");
         numProposal++;
         Proposal storage proposal = idToProposal[numProposal];
         proposal.cid = _cid;
         proposal.size = _size;
+        proposal.name = _name;
         proposal.author = msg.sender;
         proposal.storagePrice;
         proposal.deadline = block.timestamp + voteTime;
@@ -111,17 +126,28 @@ contract PeerReview is ERC721{
         proposal.downvote++;
     }
 
-    function execute(uint proposalId) public onlyDaoMember {
+    function execute(uint proposalId) public onlyDaoMember returns (bool) {
         Proposal storage proposal = idToProposal[proposalId];
         require(proposal.deadline <= block.timestamp, "deadline exceeded");
         require(!proposal.executed, "proposal already executed");
         if (proposal.upvote > proposal.downvote) {
+            numReviewed++;
+            Reviewed storage reviewed = idToReviewed[numReviewed];
+            reviewed.cid = proposal.cid;
+            reviewed.size = proposal.size;
+            reviewed.name = proposal.name;
+            reviewed.author = proposal.author;
             proposal.canWeStoreThis = true;
+            proposal.executed = true;
+            delete idToProposal[proposalId];
+            return true;
         }
         else {
             proposal.canWeStoreThis = false;
+            proposal.executed = true;
+            delete idToProposal[proposalId];
+            return false;
         }
-        proposal.executed = true;
     }
 
     // penalty proposal functions
@@ -162,6 +188,7 @@ contract PeerReview is ERC721{
             penaltyProposal.penaltyDownvote = 0;
         }
         penaltyProposal.executed = true;
+        delete idToPenalty[penaltyProposalId];
     }
 
     function removeFromDao(address user) public onlyDaoMember {
