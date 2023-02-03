@@ -3,10 +3,11 @@ import { contractAddress } from "../address.js";
 import contractAbi from "../artifacts/contracts/PeerReview.sol/PeerReview.json";
 import * as PushAPI from "@pushprotocol/restapi";
 import { Chat } from "@pushprotocol/uiweb";
-import { EmbedSDK } from "@epnsproject/frontend-sdk-staging";
+import { api, EmbedSDK } from "@epnsproject/frontend-sdk-staging";
 import web3modal from "web3modal";
 import { ethers } from "ethers";
 import { useEffect, useState } from 'react';
+import { send } from '@pushprotocol/restapi/src/lib/chat';
 
 export default function Home() {
 
@@ -85,10 +86,34 @@ export default function Home() {
 			env: 'staging'
 	})}
 
+	async function sendNotification(){
+		console.log(sign)
+		// apiResponse?.status === 204, if sent successfully!
+const apiResponse = await PushAPI.payloads.sendNotification({
+	sign,
+	type: 1, // broadcast
+	identityType: 2, // direct payload
+	notification: {
+	  title: 'tester from send',
+	  body: 'this is a test'
+	},
+	payload: {
+	  title: 'title for send',
+	  body: 'body for test',
+	  cta: '',
+	  img: ''
+	},
+	channel: 'eip155:5:0x1ABc133C222a185fEde2664388F08ca12C208F76', // your channel address
+	env: 'staging'
+  });
+  console.log(apiResponse)
+	}
+
 	return (
 		<div className={styles.home}>
 			<button onClick={optIn}>opt in</button>
 			<button onClick={optOut}>opt out</button>
+			<button onClick={sendNotification}>send notification</button>
 			<button id="sdk-trigger-id">check Notifications</button>
 			<Chat
    account= {account} //user address
