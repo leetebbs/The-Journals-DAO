@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@epnsproject/frontend-sdk-staging": "^1.8.5",
     "@huddle01/huddle01-client": "^0.0.10",
     "@huddle01/huddle01-iframe": "^0.0.8",
     "@lighthouse-web3/sdk": "^0.1.12",
@@ -17,6 +18,8 @@
     "@nomiclabs/hardhat-ethers": "^2.2.2",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@openzeppelin/contracts": "^4.8.1",
+    "@pushprotocol/restapi": "0.2.1",
+    "@pushprotocol/uiweb": "0.2.3",
     "@rainbow-me/rainbowkit": "^0.8.1",
     "chai": "^4.3.7",
     "connectkit": "^1.1.1",
@@ -32,6 +35,7 @@
     "react-dom": "18.2.0",
     "sass": "^1.57.1",
     "scss": "^0.2.4",
+    "styled-components": "^5.3.6",
     "wagmi": "^0.11.2",
     "web3modal": "^1.9.12"
   },
