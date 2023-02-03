@@ -38,10 +38,10 @@ contract PeerReview is ERC721{
         mapping(address => bool) voted;
     }
     
-
     uint public numPenaltyProposal;
 
     mapping (uint => PenaltyProposal) public idToPenalty;
+
 
     struct Proposal {
         string cid;
@@ -82,11 +82,9 @@ contract PeerReview is ERC721{
         delete addressToDaoMember[msg.sender];
     }
 
-
-
     // proposal functions
 
-    function createProposal(string memory _cid, uint _size) public payable {
+    function createProposal(string memory _cid, uint _size) public payable returns (uint){
         uint storagePrice = 0; // storage price to be specified;
         require(msg.value == storagePrice, "incorrect storage amount");
         numProposal++;
@@ -96,6 +94,7 @@ contract PeerReview is ERC721{
         proposal.author = msg.sender;
         proposal.storagePrice;
         proposal.deadline = block.timestamp + voteTime;
+        return numProposal;
     }
 
     function upvote(uint proposalId) public onlyDaoMember {
@@ -127,12 +126,13 @@ contract PeerReview is ERC721{
 
     // penalty proposal functions
 
-    function createPenalty(address _user, string memory _reason) public onlyDaoMember {
+    function createPenalty(address _user, string memory _reason) public onlyDaoMember returns(uint) {
         numPenaltyProposal++;
         PenaltyProposal storage penaltyProposal = idToPenalty[numProposal];
         penaltyProposal.user = _user;
         penaltyProposal.reason = _reason;
         penaltyProposal.deadline = block.timestamp + voteTime;
+        return numPenaltyProposal;
     }
 
     function upvotePenalty(uint penaltyProposalId) public onlyDaoMember {

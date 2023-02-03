@@ -92,18 +92,20 @@ const Proposals = () => {
                     <input name="size" placeholder="size (bytes)" required onChange={(e) => setProposalData({ ...proposalData, size: e.target.value, })} />
                     <button onClick={createProposal}>Propose</button>
                 </div>
-                {proposals.map((item, i) => (
-                    <ProposalCard
-                        key={i}
-                        cid={item.cid}
-                        size={item.size}
-                        author={item.author}
-                        executed={item.executed}
-                        deadline={item.deadline}
-                        yay={item.yayVotes}
-                        nay={item.nayVotes}
-                    />
-                ))}
+                <div className={styles.cardContainer}>
+                    {proposals.map((item, i) => (
+                        <ProposalCard
+                            key={i}
+                            cid={item.cid}
+                            size={item.size}
+                            author={item.author}
+                            executed={item.executed}
+                            deadline={item.deadline}
+                            yay={item.yayVotes}
+                            nay={item.nayVotes}
+                        />
+                    ))}
+                </div>
             </>
         )
     }
@@ -111,16 +113,13 @@ const Proposals = () => {
     function ProposalCard(prop) {
         return (
             <div className={styles.card}>
-                {/* <img src={uri} /> */}
-                <div className={styles.subDiv}>
-                    <h4>cid: {prop.cid}</h4>
-                    <h4>size: {prop.size}</h4>
-                    <h4>author: {prop.author}</h4>
-                    <div className={styles.cardBtns}>
-                        <button className={styles.cardBtn} onClick={() => upvote(prop.proposalId)}> yay </button>
-                        <button className={styles.cardBtn} onClick={() => downvote(prop.proposalId)}> nay </button>
-                        <button className={styles.cardBtn} onClick={() => executeProposal(prop.proposalId)}> Execute </button>
-                    </div>
+                <p>cid: {prop.cid}</p>
+                <p>size: {prop.size}</p>
+                <p>author: {prop.author}</p>
+                <div className={styles.cardBtns}>
+                    <button className={styles.cardBtn} onClick={() => upvote(prop.proposalId)}> Upvote </button>
+                    <button className={styles.cardBtn} onClick={() => downvote(prop.proposalId)}> Downvote </button>
+                    <button className={styles.cardBtn} onClick={() => executeProposal(prop.proposalId)}> Execute </button>
                 </div>
             </div>
         )
@@ -178,20 +177,22 @@ const Proposals = () => {
                 <div className={styles.inputDiv}>
                     <input name="user" placeholder="user" required onChange={(e) => setPenaltyData({ ...penaltyData, user: e.target.value, })} />
                     <input name="reason" placeholder="reason" required onChange={(e) => setPenaltyData({ ...penaltyData, reason: e.target.value, })} />
-                    <button onClick={createPenalties}>Penalize</button>
+                    <button onClick={createPenalties}>Penalize (for only dao members)</button>
                 </div>
-                {penalties.map((item, i) => (
-                    <PenaltyCard
-                        key={i}
-                        cid={item.cid}
-                        size={item.size}
-                        author={item.author}
-                        executed={item.executed}
-                        deadline={item.deadline}
-                        yay={item.yayVotes}
-                        nay={item.nayVotes}
-                    />
-                ))}
+                <div className={styles.cardContainer}>
+                    {penalties.map((item, i) => (
+                        <PenaltyCard
+                            key={i}
+                            cid={item.cid}
+                            size={item.size}
+                            author={item.author}
+                            executed={item.executed}
+                            deadline={item.deadline}
+                            yay={item.yayVotes}
+                            nay={item.nayVotes}
+                        />
+                    ))}
+                </div>
             </>
         )
     }
@@ -199,16 +200,13 @@ const Proposals = () => {
     function PenaltyCard(prop) {
         return (
             <div className={styles.card}>
-                {/* <img src={uri} /> */}
-                <div className={styles.subDiv}>
-                    <h4>cid: {prop.cid}</h4>
-                    <h4>size: {prop.size}</h4>
-                    <h4>author: {prop.author}</h4>
-                    <div className={styles.cardBtns}>
-                        <button className={styles.cardBtn} onClick={() => upvotePenalty(prop.proposalId)}> yay </button>
-                        <button className={styles.cardBtn} onClick={() => downvotePenalty(prop.proposalId)}> nay </button>
-                        <button className={styles.cardBtn} onClick={() => executePenalty(prop.proposalId)}> Execute </button>
-                    </div>
+                <p>cid: {prop.cid}</p>
+                <p>size: {prop.size}</p>
+                <p>author: {prop.author}</p>
+                <div className={styles.cardBtns}>
+                    <button className={styles.cardBtn} onClick={() => upvotePenalty(prop.proposalId)}> yay </button>
+                    <button className={styles.cardBtn} onClick={() => downvotePenalty(prop.proposalId)}> nay </button>
+                    <button className={styles.cardBtn} onClick={() => executePenalty(prop.proposalId)}> Execute </button>
                 </div>
             </div>
         )
@@ -231,8 +229,6 @@ const Proposals = () => {
                 <button className={styles.btn} onClick={() => setSelectedTab("View Penalties")} >Show penalties</button>
             </div>
             {renderTabs()}
-            <div className={styles.cardContainer}>
-            </div>
         </div>
     )
 }

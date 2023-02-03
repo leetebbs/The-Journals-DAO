@@ -2,6 +2,7 @@
 
 $background: #121214;
 $pinkColor: #ffcece;
+$cyan: rgb(187, 238, 250);
 
 // global
 
@@ -36,7 +37,7 @@ $pinkColor: #ffcece;
 // homepage
 
 .home {
-  padding: 1rem;
+  padding: 3rem 2rem 1rem 2rem;
   background-color: $background;
   color: white;
   width: 100%;
@@ -72,8 +73,7 @@ $pinkColor: #ffcece;
 // proposals
 
 .proposals {
-  padding: 1rem;
-  padding-top: 3rem;
+  padding: 3rem 2rem 1rem 2rem;
   background-color: $background;
   color: white;
   width: 100%;
@@ -128,8 +128,26 @@ $pinkColor: #ffcece;
       }
 
       button:hover {
-        background-color:rgb(210, 245, 253);
+        background-color: $cyan;
       }
+  }
+
+  .card {
+    padding: 1rem;
+    padding-top: 0.1rem;
+    background-color: #323235;
+    width: 30%;
+
+    .cardBtns {
+      display: flex;
+      gap: 0.5rem;
+
+      .cardBtn {
+        background-color: #121214;
+        color: white;
+        padding: 0.2rem 0.8rem;
+      }
+    }
   }
 }
 
