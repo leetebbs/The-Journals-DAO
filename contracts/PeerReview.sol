@@ -62,6 +62,18 @@ contract PeerReview is ERC721{
 
     mapping (uint => Proposal) public idToProposal;
 
+
+    struct Reviewed {
+        string cid;
+        uint size;
+        string name;
+        address author;
+    }
+
+    uint public numReviewed;
+
+    mapping (uint => Reviewed) public idToReviewed;
+
     // dao functions
     
     function joinDao() public payable {
@@ -119,13 +131,21 @@ contract PeerReview is ERC721{
         require(proposal.deadline <= block.timestamp, "deadline exceeded");
         require(!proposal.executed, "proposal already executed");
         if (proposal.upvote > proposal.downvote) {
+            numReviewed++;
+            Reviewed storage reviewed = idToReviewed[numReviewed];
+            reviewed.cid = proposal.cid;
+            reviewed.size = proposal.size;
+            reviewed.name = proposal.name;
+            reviewed.author = proposal.author;
             proposal.canWeStoreThis = true;
             proposal.executed = true;
+            delete idToProposal[proposalId];
             return true;
         }
         else {
             proposal.canWeStoreThis = false;
             proposal.executed = true;
+            delete idToProposal[proposalId];
             return false;
         }
     }
