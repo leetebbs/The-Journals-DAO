@@ -1,12 +1,6 @@
 import { Navbar } from '../components/navbar'
 import '../styles/globals.css'
 import styles from '../styles/all.module.scss'
-// import '@rainbow-me/rainbowkit/styles.css';
-// import {
-//   getDefaultWallets,
-//   RainbowKitProvider,
-//   darkTheme
-// } from '@rainbow-me/rainbowkit';
 import {
   chain,
   configureChains,
@@ -76,7 +70,7 @@ const client = createClient({
     new CoinbaseWalletConnector({
       chains,
       options: {
-        appName: 'Pinsurnace',
+        appName: 'ThePeerDao',
       },
     }),
     new WalletConnectConnector({

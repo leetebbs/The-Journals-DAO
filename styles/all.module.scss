@@ -2,7 +2,8 @@
 
 $background: #121214;
 $pinkColor: #ffcece;
-$cyan: rgb(165, 234, 250);
+$cyan: rgb(181, 240, 253);
+$darkPink: #ffb0b0;
 
 // global
 
@@ -17,6 +18,7 @@ $cyan: rgb(165, 234, 250);
   padding: 0 2rem;
   background-color: black;
   color: white;
+  width: 15%;
 
   .container {
     display: flex;
@@ -45,11 +47,11 @@ $cyan: rgb(165, 234, 250);
   h1 {
     color: $pinkColor;
   }
-  
-  .daoCard  {
+
+  .daoCard {
     border: 0.5px solid $pinkColor;
-    width: 25rem;
-    padding: 0 1rem 1rem 1rem;
+    width: 26rem;
+    padding: 0 1rem 1.5rem 1.5em;
 
     img {
       width: 100%;
@@ -65,8 +67,28 @@ $cyan: rgb(165, 234, 250);
       background-color: $pinkColor;
       padding: 0.3rem 1.2rem;
       border: none;
+      border-radius: 2px;
       font-size: 100%;
     }
+
+    button:hover {
+      background-color: $darkPink;
+    }
+  }
+
+  .memberList {
+    position: absolute;
+    top: 180px;
+    left: 1000px;
+    height: 500px;
+    width: 500px;
+    background-color: #232324;
+    border-radius: 4px;
+    padding: 1rem 1rem 1rem 2rem;
+  }
+
+  p {
+    display: inline;
   }
 }
 
@@ -78,67 +100,75 @@ $cyan: rgb(165, 234, 250);
   color: white;
   width: 100%;
 
-    .btnDiv {
-      display: flex;
-      flex-direction: row;
-      gap: 1rem;
+  .btnDiv {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 
-      .btn {
-        padding: 0.4rem 1.4rem;
-        background-color: $pinkColor;
-        border: none;
-        font-size: 110%;
-        border-radius: 2px;
-      }
-
-      .btn:hover {
-        background-color:#f8b4b4;
-      }
+    .btn {
+      padding: 0.4rem 1.4rem;
+      background-color: $pinkColor;
+      border: none;
+      font-size: 110%;
+      border-radius: 2px;
     }
 
-    .inputDiv {
-      margin-top: 2rem;
-      margin-bottom: 4rem;
-      display: flex;
-      flex-direction: row;
-      gap: 1rem;
+    .btn:hover {
+      background-color: #f8b4b4;
+    }
+  }
 
-      input:not(input[type=file]) {
-        background-color:#323235;
-      }
+  .inputDiv {
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 
-      input {
-        font-size: 110%;
-        color: white;
-        border: none;
-        padding: 0.3rem 1.1rem;
-      }
-
-      input::placeholder{
-        // color: rgba(57, 56, 56, 0.818);
-        color: rgb(143, 143, 143);
-        text-align: center;
+    input:not(input[type=file]) {
+      background-color: #323235;
     }
 
-      input[type=text]:focus {
-        border: 3px solid #555;
-      }
+    input {
+      padding: 0.3rem 1.1rem;
+      font-size: 110%;
+      color: white;
+      border: none;
+    }
 
-      button {
-        font-size: 110%;
-        background-color: ghostwhite;
-        border: none;
-        padding: 0.3rem 1.1rem;
-        border-radius: 2px;
-      }
+    input[type=file] {
+      padding-left: 0;
+    }
 
-      button:hover {
-        background-color: $cyan;
-      }
+    input[type=file]::file-selector-button {
+      background-color: rgb(241, 211, 250);
+    }
 
-      .proposeBtn {
-        margin-right: 2rem;
-      }
+    input::placeholder {
+      // color: rgba(57, 56, 56, 0.818);
+      color: rgb(143, 143, 143);
+      text-align: center;
+    }
+
+    input[type=text]:focus {
+      border: 3px solid #555;
+    }
+
+    button {
+      font-size: 110%;
+      background-color: rgb(241, 211, 250);
+      border: none;
+      padding: 0.3rem 1.1rem;
+      border-radius: 2px;
+    }
+
+    button:hover {
+      background-color: $darkPink;
+    }
+
+    .proposeBtn {
+      margin-right: 2rem;
+    }
   }
 
   .card {
@@ -146,7 +176,7 @@ $cyan: rgb(165, 234, 250);
     padding-top: 0.1rem;
     background-color: #323235;
     border-radius: 4px;
-    width: 30%;
+    width: 32%;
 
     .cardBtns {
       display: flex;
@@ -158,6 +188,12 @@ $cyan: rgb(165, 234, 250);
         padding: 0.2rem 0.8rem;
       }
     }
+  }
+
+  .cardContainer {
+    
+    display: flex;
+    gap: 1rem;
   }
 }
 
@@ -177,26 +213,27 @@ $cyan: rgb(165, 234, 250);
 
 // others
 
-.dashboard{
-  width: 100%; 
+.dashboard {
+  width: 100%;
 }
 
-.buttonList{
+.buttonList {
   position: relative;
-  left:39%;
+  left: 39%;
 }
 
-.video{
-  padding-top:50px;
+.video {
+  padding-top: 50px;
   margin-left: 45%;
   margin-right: auto;
-  width:50%;
+  width: 50%;
   // background-color: aqua;
 }
+
 .peersgrid {
   display: grid;
   grid-template-columns: repeat(4, 300px);
-  grid-column-gap:2px;
+  grid-column-gap: 2px;
   // grid-template-rows: 1fr 1fr 1fr;
   // width: 100%;
   place-items: center;

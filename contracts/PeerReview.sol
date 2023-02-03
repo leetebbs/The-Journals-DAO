@@ -28,6 +28,8 @@ contract PeerReview is ERC721{
     }
 
     mapping (address => DaoMember) public addressToDaoMember;
+    address[] public daoMembersTracking;
+    uint public numDaoMembers;
 
     struct PenaltyProposal {
         address user;
@@ -78,6 +80,8 @@ contract PeerReview is ERC721{
     
     function joinDao() public payable {
         require(msg.value == joinStake, "incorrect stake amount");
+        numDaoMembers++;
+        daoMembersTracking.push(msg.sender);
         _tokenId.increment();
         uint newTokenId = _tokenId.current();
         _mint(msg.sender, newTokenId);
@@ -90,6 +94,7 @@ contract PeerReview is ERC721{
     }
 
     function leaveDao() public onlyDaoMember {
+        numDaoMembers--;
         uint nftId = addressToDaoMember[msg.sender].nftId;
         payable(msg.sender).transfer(addressToDaoMember[msg.sender].returnAmount);
         _burn(nftId);

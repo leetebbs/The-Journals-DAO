@@ -27,7 +27,7 @@ const Articles = () => {
     async function getNumArticlesInDAO() {
         try {
             const contract = await getContract()
-            const daoNumProposals = await contract.numProposal();
+            const daoNumProposals = await contract.numReviewed();
             return daoNumProposals
         } catch (error) {
             console.log(error)

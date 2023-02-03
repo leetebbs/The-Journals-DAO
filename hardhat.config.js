@@ -9,11 +9,11 @@ module.exports = {
       chainId: 1337 
     }, 
     wallaby: {  
-      url: `https://wallaby.filfox.info/rpc/v0`,  
+      url: `https://wallaby.filfox.info/rpc/v1`,  
       accounts: [privateKey]  
-    }, 
+    },
     hyperspace: {  
-      url: `https://filecoin-hyperspace.chainstacklabs.com/rpc/v0`,  
+      url: `https://filecoin-hyperspace.chainstacklabs.com/rpc/v1`,  
       accounts: [privateKey]  
     },
   }, 
