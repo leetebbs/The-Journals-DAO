@@ -11,6 +11,7 @@
   "dependencies": {
     "@huddle01/huddle01-client": "^0.0.10",
     "@huddle01/huddle01-iframe": "^0.0.8",
+    "@lighthouse-web3/sdk": "^0.1.12",
     "@next/font": "13.1.6",
     "@nomicfoundation/hardhat-toolbox": "^2.0.1",
     "@nomiclabs/hardhat-ethers": "^2.2.2",

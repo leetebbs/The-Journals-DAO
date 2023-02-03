@@ -5,6 +5,8 @@ import contractAbi from "../artifacts/contracts/PeerReview.sol/PeerReview.json";
 import web3modal from "web3modal";
 import { ethers } from "ethers";
 import { useEffect, useState } from 'react';
+import lighthouse from '@lighthouse-web3/sdk';
+import Link from 'next/link';
 
 const Proposals = () => {
 
@@ -16,7 +18,8 @@ const Proposals = () => {
     const [selectedTab, setSelectedTab] = useState("View Proposal")
     const [proposalData, setProposalData] = useState({
         cid: "",
-        size: ""
+        size: "",
+        name: ""
     })
     const [penaltyData, setPenaltyData] = useState({
         user: "",
@@ -24,6 +27,21 @@ const Proposals = () => {
     })
     const [proposals, setProposals] = useState([])
     const [penalties, setPenalties] = useState([])
+
+    // lighthouse
+
+    const progressCallback = (progressData) => {
+        let percentageDone =
+          100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
+        console.log(percentageDone);
+      };
+
+    async function lighthouseUpload(e) {
+        const output = await lighthouse.upload(e, `bf9ebee0-3e4f-4647-a3e1-79d78de822b5`, progressCallback)
+        console.log('File Status:', output)
+        setProposalData({ cid: output.data.Hash, size: output.data.Size, name: output.data.Name })
+        // console.log(`https://gateway.lighthouse.storage/ipfs/${output.Hash}`)
+    }
 
     // contract instance
 
@@ -40,7 +58,8 @@ const Proposals = () => {
 
     async function createProposal() {
         const contract = await getContract()
-        const txn = await contract.createProposal(proposalData.cid.toString(), proposalData.size)
+        const price = ethers.utils.parseUnits("0.1", "ether")
+        const txn = await contract.createProposal(proposalData.cid.toString(), proposalData.size, proposalData.name.toString(), {value: price})
         await txn.wait()
         fetchAllProposal()
     }
@@ -49,8 +68,6 @@ const Proposals = () => {
         try {
             const contract = await getContract()
             const daoNumProposals = await contract.numProposal();
-            // setNumProposals(daoNumProposals.toString());
-            console.log(daoNumProposals)
             return daoNumProposals
         } catch (error) {
             console.log(error)
@@ -60,14 +77,15 @@ const Proposals = () => {
     async function fetchProposalById(id) {
         const contract = await getContract()
         const proposal = await contract.idToProposal(id)
-        console.log(proposal)
+        // console.log(proposal)
         const parsedProposal = {
             proposalId: id,
             author: proposal.author.toString(),
             cid: proposal.cid.toString(),
             size: proposal.size.toNumber(),
-            yayVotes: proposal.upvote.toNumber(),
-            nayVotes: proposal.downvote.toNumber(),
+            name: proposal.name.toString(),
+            upvote: proposal.upvote.toNumber(),
+            downvote: proposal.downvote.toNumber(),
             executed: proposal.executed,
         };
         console.log(parsedProposal)
@@ -84,13 +102,38 @@ const Proposals = () => {
         setProposals(proposals);
     }
 
+    async function upvote(proposalId) {
+        const contract = await getContract()
+        const txn = await contract.upvote(proposalId);
+        await txn.wait();
+        await fetchAllProposal();
+    }
+
+    async function downvote(proposalId) {
+        const contract = await getContract()
+        const txn = await contract.downvote(proposalId);
+        await txn.wait();
+        await fetchAllProposal();
+    }
+
+    async function executeProposal(prop) {
+        const contract = await getContract()
+        const txn = await contract.execute(prop.proposalId);        
+        await txn.wait();
+        await fetchAllProposal();
+        if(txn == true) {
+            const cid = prop.cid
+            uploadToLighthouse(cid)
+        }
+    }
+
     function renderProposal() {
         return (
             <>
                 <div className={styles.inputDiv}>
-                    <input name="cid" placeholder="cid" required onChange={(e) => setProposalData({ ...proposalData, cid: e.target.value, })} />
-                    <input name="size" placeholder="size (bytes)" required onChange={(e) => setProposalData({ ...proposalData, size: e.target.value, })} />
-                    <button onClick={createProposal}>Propose</button>
+                    <input onChange={e => lighthouseUpload(e)} type="file" />
+                    <button className={styles.proposeBtn} onClick={createProposal}>Propose</button>
+                    <button><Link target="_blank" rel="noreferrer" href={`https://gateway.lighthouse.storage/ipfs/${proposalData.cid}`}>Check your file</Link></button>
                 </div>
                 <div className={styles.cardContainer}>
                     {proposals.map((item, i) => (
@@ -98,11 +141,12 @@ const Proposals = () => {
                             key={i}
                             cid={item.cid}
                             size={item.size}
+                            name={item.name}
                             author={item.author}
                             executed={item.executed}
                             deadline={item.deadline}
-                            yay={item.yayVotes}
-                            nay={item.nayVotes}
+                            upvote={item.upvote}
+                            downvote={item.downvote}
                         />
                     ))}
                 </div>
@@ -115,11 +159,12 @@ const Proposals = () => {
             <div className={styles.card}>
                 <p>cid: {prop.cid}</p>
                 <p>size: {prop.size}</p>
+                <p>file name: {prop.name}</p>
                 <p>author: {prop.author}</p>
                 <div className={styles.cardBtns}>
                     <button className={styles.cardBtn} onClick={() => upvote(prop.proposalId)}> Upvote </button>
                     <button className={styles.cardBtn} onClick={() => downvote(prop.proposalId)}> Downvote </button>
-                    <button className={styles.cardBtn} onClick={() => executeProposal(prop.proposalId)}> Execute </button>
+                    <button className={styles.cardBtn} onClick={() => executeProposal(prop)}> Execute </button>
                 </div>
             </div>
         )
@@ -138,7 +183,6 @@ const Proposals = () => {
         try {
             const contract = await getContract()
             const daoNumProposals = await contract.numPenaltyProposal();
-            // setNumProposals(daoNumProposals.toString());
             return daoNumProposals
         } catch (error) {
             console.log(error)
@@ -148,7 +192,7 @@ const Proposals = () => {
     async function fetchPenaltiesById(id) {
         const contract = await getContract()
         const proposal = await contract.idToPenalty(id)
-        console.log(proposal)
+        // console.log(proposal)
         const parsedProposal = {
             proposalId: id,
             user: proposal.user.toString(),
@@ -171,6 +215,27 @@ const Proposals = () => {
         setPenalties(proposals);
     }
 
+    async function upvotePenalty(proposalId) {
+        const contract = await getContract()
+        const txn = await contract.upvotePenalty(proposalId);
+        await txn.wait();
+        await fetchAllPenalties();
+    }
+
+    async function downvotePenalty(proposalId) {
+        const contract = await getContract()
+        const txn = await contract.downvotePenalty(proposalId);
+        await txn.wait();
+        await fetchAllPenalties();
+    }
+
+    async function executePenalty(proposalId) {
+        const contract = await getContract()
+        const txn = await contract.executePenalty(proposalId);
+        await txn.wait();
+        await fetchAllPenalties();
+    }
+
     function renderPenalties() {
         return (
             <>
@@ -188,8 +253,8 @@ const Proposals = () => {
                             author={item.author}
                             executed={item.executed}
                             deadline={item.deadline}
-                            yay={item.yayVotes}
-                            nay={item.nayVotes}
+                            upvote={item.penaltyUpvote}
+                            downvote={item.penaltyDownvote}
                         />
                     ))}
                 </div>
@@ -204,8 +269,8 @@ const Proposals = () => {
                 <p>size: {prop.size}</p>
                 <p>author: {prop.author}</p>
                 <div className={styles.cardBtns}>
-                    <button className={styles.cardBtn} onClick={() => upvotePenalty(prop.proposalId)}> yay </button>
-                    <button className={styles.cardBtn} onClick={() => downvotePenalty(prop.proposalId)}> nay </button>
+                    <button className={styles.cardBtn} onClick={() => upvotePenalty(prop.proposalId)}> Upvote </button>
+                    <button className={styles.cardBtn} onClick={() => downvotePenalty(prop.proposalId)}> Downvote </button>
                     <button className={styles.cardBtn} onClick={() => executePenalty(prop.proposalId)}> Execute </button>
                 </div>
             </div>

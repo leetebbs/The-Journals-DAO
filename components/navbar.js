@@ -13,6 +13,7 @@ export const Navbar = () => {
             <Link href="/proposals"><p>Proposals</p></Link>
             <Link href="/conference"><p>Conference</p></Link>
             <Link href="/textroom"><p>Text room</p></Link>
+            <Link href="/article"><p>Articles</p></Link>
         </div>
     </div>
   )

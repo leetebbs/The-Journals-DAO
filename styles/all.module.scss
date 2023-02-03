@@ -2,7 +2,7 @@
 
 $background: #121214;
 $pinkColor: #ffcece;
-$cyan: rgb(187, 238, 250);
+$cyan: rgb(165, 234, 250);
 
 // global
 
@@ -21,10 +21,10 @@ $cyan: rgb(187, 238, 250);
   .container {
     display: flex;
     flex-direction: column;
-    margin-top: 40%;
+    margin-top: 60%;
 
     p {
-      margin-top: 10%;
+      margin-top: 15%;
       font-size: 110%;
     }
 
@@ -88,6 +88,7 @@ $cyan: rgb(187, 238, 250);
         background-color: $pinkColor;
         border: none;
         font-size: 110%;
+        border-radius: 2px;
       }
 
       .btn:hover {
@@ -102,9 +103,12 @@ $cyan: rgb(187, 238, 250);
       flex-direction: row;
       gap: 1rem;
 
+      input:not(input[type=file]) {
+        background-color:#323235;
+      }
+
       input {
         font-size: 110%;
-        background-color:#323235;
         color: white;
         border: none;
         padding: 0.3rem 1.1rem;
@@ -125,10 +129,15 @@ $cyan: rgb(187, 238, 250);
         background-color: ghostwhite;
         border: none;
         padding: 0.3rem 1.1rem;
+        border-radius: 2px;
       }
 
       button:hover {
         background-color: $cyan;
+      }
+
+      .proposeBtn {
+        margin-right: 2rem;
       }
   }
 
@@ -136,6 +145,7 @@ $cyan: rgb(187, 238, 250);
     padding: 1rem;
     padding-top: 0.1rem;
     background-color: #323235;
+    border-radius: 4px;
     width: 30%;
 
     .cardBtns {
@@ -148,6 +158,20 @@ $cyan: rgb(187, 238, 250);
         padding: 0.2rem 0.8rem;
       }
     }
+  }
+}
+
+// articles
+
+.articles {
+  padding: 3rem 2rem 1rem 2rem;
+  background-color: $background;
+  color: white;
+  width: 100%;
+
+  .card {
+    border-radius: 4px;
+    margin-right: 2rem;
   }
 }
 
