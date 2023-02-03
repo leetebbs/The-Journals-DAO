@@ -149,7 +149,7 @@ contract PeerReview is ERC721{
         penaltyProposal.penaltyDownvote++;
     }
 
-    function executPenalty(uint penaltyProposalId) public onlyDaoMember {
+    function executePenalty(uint penaltyProposalId) public onlyDaoMember {
         PenaltyProposal storage penaltyProposal = idToPenalty[penaltyProposalId];
         DaoMember storage daoMember = addressToDaoMember[penaltyProposal.user];
         require(penaltyProposal.deadline <= block.timestamp, "deadline exceeded");
@@ -169,7 +169,7 @@ contract PeerReview is ERC721{
         _burn(nftId);
     }
 
-    // view files for CCCCCCCCCnon dao members
+    // view files for non dao members
 
     function obtainViewship() public payable {
         require(msg.value == viewFee, "incorrect stake amount");

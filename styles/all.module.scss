@@ -61,7 +61,8 @@ $pinkColor: #ffcece;
     }
 
     button {
-      background-color: none;
+      background-color: $pinkColor;
+      padding: 0.3rem 1.2rem;
       border: none;
       font-size: 100%;
     }
@@ -72,6 +73,7 @@ $pinkColor: #ffcece;
 
 .proposals {
   padding: 1rem;
+  padding-top: 3rem;
   background-color: $background;
   color: white;
   width: 100%;
@@ -82,29 +84,35 @@ $pinkColor: #ffcece;
       gap: 1rem;
 
       .btn {
-        padding: 0.2rem 0.6rem;
-        background-color: tomato;
+        padding: 0.4rem 1.4rem;
+        background-color: $pinkColor;
         border: none;
         font-size: 110%;
       }
 
       .btn:hover {
-        background-color:rgb(210, 245, 253);
+        background-color:#f8b4b4;
       }
     }
 
     .inputDiv {
-      margin-top: 1rem;
+      margin-top: 2rem;
+      margin-bottom: 4rem;
       display: flex;
       flex-direction: row;
       gap: 1rem;
 
       input {
         font-size: 110%;
+        background-color:#323235;
+        color: white;
+        border: none;
+        padding: 0.3rem 1.1rem;
       }
 
       input::placeholder{
-        color: rgba(57, 56, 56, 0.818);
+        // color: rgba(57, 56, 56, 0.818);
+        color: rgb(143, 143, 143);
         text-align: center;
     }
 
@@ -116,55 +124,13 @@ $pinkColor: #ffcece;
         font-size: 110%;
         background-color: ghostwhite;
         border: none;
+        padding: 0.3rem 1.1rem;
       }
 
       button:hover {
         background-color:rgb(210, 245, 253);
       }
   }
-
-  .card {
-    width: 35rem;
-    display: flex;
-    flex-direction: column;
-    /* justify-content: flex-end; */
-    align-items: flex-start;
-    /* align-content: flex-start; */
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
-.subdiv{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1rem;
-    border: 1px solid rgb(59, 177, 204);
-    border-radius: 0.5rem;
-}
-
-.subdiv>p {
-    margin: 0.7rem;
-}
-.subdiv>h4 {
-    margin: 0.7rem;
-}
-
-.cardbtns {
-    display: flex;
-    justify-content: space-around;
-    width: 30rem;
-}
-
-.cardbtn {
-    padding: 1rem 2rem ;
-    margin: 1.5rem 0rem 0rem 0rem;
-    border-radius: 0.25rem;
-    border: none;
-    cursor: pointer;
-    background-color:rgb(59, 177, 204) ;
-    color: #000;
-}
 }
 
 // others

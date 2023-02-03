@@ -25,6 +25,8 @@ const Proposals = () => {
     const [proposals, setProposals] = useState([])
     const [penalties, setPenalties] = useState([])
 
+    // contract instance
+
     async function getContract() {
         const modal = new web3modal();
         const connection = await modal.connect()
@@ -48,6 +50,7 @@ const Proposals = () => {
             const contract = await getContract()
             const daoNumProposals = await contract.numProposal();
             // setNumProposals(daoNumProposals.toString());
+            console.log(daoNumProposals)
             return daoNumProposals
         } catch (error) {
             console.log(error)
@@ -62,11 +65,10 @@ const Proposals = () => {
             proposalId: id,
             author: proposal.author.toString(),
             cid: proposal.cid.toString(),
-            size: proposal.size,
+            size: proposal.size.toNumber(),
             yayVotes: proposal.upvote.toNumber(),
             nayVotes: proposal.downvote.toNumber(),
             executed: proposal.executed,
-            destination: proposal.destination,
         };
         console.log(parsedProposal)
         return parsedProposal;
@@ -110,14 +112,14 @@ const Proposals = () => {
         return (
             <div className={styles.card}>
                 {/* <img src={uri} /> */}
-                <div className={styles.subdiv}>
+                <div className={styles.subDiv}>
                     <h4>cid: {prop.cid}</h4>
                     <h4>size: {prop.size}</h4>
                     <h4>author: {prop.author}</h4>
-                    <div className={styles.cardbtns}>
-                        <button className={styles.cardbtn} onClick={() => upvote(prop.proposalId)}> yay </button>
-                        <button className={styles.cardbtn} onClick={() => downvote(prop.proposalId)}> nay </button>
-                        <button className={styles.cardbtn} onClick={() => executeProposal(prop.proposalId)}> Execute </button>
+                    <div className={styles.cardBtns}>
+                        <button className={styles.cardBtn} onClick={() => upvote(prop.proposalId)}> yay </button>
+                        <button className={styles.cardBtn} onClick={() => downvote(prop.proposalId)}> nay </button>
+                        <button className={styles.cardBtn} onClick={() => executeProposal(prop.proposalId)}> Execute </button>
                     </div>
                 </div>
             </div>
@@ -130,7 +132,7 @@ const Proposals = () => {
         const contract = await getContract()
         const txn = await contract.createPenalty(penaltyData.user, penaltyData.reason)
         await txn.wait()
-        fetchAllProposal()
+        fetchAllPenalties()
     }
 
     async function getNumPenaltiesInDAO() {
@@ -152,11 +154,9 @@ const Proposals = () => {
             proposalId: id,
             user: proposal.user.toString(),
             reason: proposal.reason.toString(),
-            size: proposal.size,
             yayVotes: proposal.penaltyUpvote.toNumber(),
             nayVotes: proposal.penaltyDownvote.toNumber(),
             executed: proposal.executed,
-            destination: proposal.destination,
         };
         console.log(parsedProposal)
         return parsedProposal;
@@ -169,16 +169,16 @@ const Proposals = () => {
             const proposal = await fetchPenaltiesById(i + 1);
             proposals.push(proposal);
         }
-        setPenaltyData(proposals);
+        setPenalties(proposals);
     }
 
     function renderPenalties() {
         return (
             <>
                 <div className={styles.inputDiv}>
-                    <input name="user" placeholder="user" required onChange={(e) => setProposalData({ ...penaltyData, user: e.target.value, })} />
-                    <input name="reason" placeholder="reason" required onChange={(e) => setProposalData({ ...penaltyData, reason: e.target.value, })} />
-                    <button onClick={createProposal}>Penalize</button>
+                    <input name="user" placeholder="user" required onChange={(e) => setPenaltyData({ ...penaltyData, user: e.target.value, })} />
+                    <input name="reason" placeholder="reason" required onChange={(e) => setPenaltyData({ ...penaltyData, reason: e.target.value, })} />
+                    <button onClick={createPenalties}>Penalize</button>
                 </div>
                 {penalties.map((item, i) => (
                     <PenaltyCard
@@ -200,14 +200,14 @@ const Proposals = () => {
         return (
             <div className={styles.card}>
                 {/* <img src={uri} /> */}
-                <div className={styles.subdiv}>
+                <div className={styles.subDiv}>
                     <h4>cid: {prop.cid}</h4>
                     <h4>size: {prop.size}</h4>
                     <h4>author: {prop.author}</h4>
-                    <div className={styles.cardbtns}>
-                        <button className={styles.cardbtn} onClick={() => upvote(prop.proposalId)}> yay </button>
-                        <button className={styles.cardbtn} onClick={() => downvote(prop.proposalId)}> nay </button>
-                        <button className={styles.cardbtn} onClick={() => executeProposal(prop.proposalId)}> Execute </button>
+                    <div className={styles.cardBtns}>
+                        <button className={styles.cardBtn} onClick={() => upvotePenalty(prop.proposalId)}> yay </button>
+                        <button className={styles.cardBtn} onClick={() => downvotePenalty(prop.proposalId)}> nay </button>
+                        <button className={styles.cardBtn} onClick={() => executePenalty(prop.proposalId)}> Execute </button>
                     </div>
                 </div>
             </div>
