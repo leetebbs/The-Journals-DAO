@@ -5,7 +5,7 @@ import contractAbi from "../artifacts/contracts/PeerReview.sol/PeerReview.json";
 import web3modal from "web3modal";
 import { ethers } from "ethers";
 import { useEffect, useState } from 'react';
-// />
+
 export default function Home() {
 
 	async function getContract() {
