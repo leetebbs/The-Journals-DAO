@@ -90,7 +90,7 @@ const Proposals = () => {
         const price = ethers.utils.parseUnits("0.1", "ether")
         const txn = await contract.createProposal(proposalData.cid.toString(), proposalData.size, proposalData.name.toString(), {value: price})
         await txn.wait()
-        setPushTitle("Proposal Submited")
+        setPushTitle("Proposal Submitted")
         sendNotification()
         fetchAllProposal()
     }
@@ -134,7 +134,6 @@ const Proposals = () => {
     }
 
     async function upvote(proposalId) {
-        console.log("**** ",proposalId)
         const contract = await getContract()
         const txn = await contract.upvote(proposalId);
         await txn.wait();
@@ -171,6 +170,7 @@ const Proposals = () => {
                     {proposals.map((item, i) => (
                         <ProposalCard
                             key={i}
+                            proposalId={item.proposalId}
                             cid={item.cid}
                             size={item.size}
                             name={item.name}
@@ -187,7 +187,6 @@ const Proposals = () => {
     }
 
     function ProposalCard(prop) {
-        console.log(prop)// there is no propsal id in the props 
         return (
             <div className={styles.card}>
                 <p>cid: {prop.cid}</p>
@@ -281,6 +280,7 @@ const Proposals = () => {
                     {penalties.map((item, i) => (
                         <PenaltyCard
                             key={i}
+                            proposalId={item.proposalId}
                             cid={item.cid}
                             size={item.size}
                             author={item.author}

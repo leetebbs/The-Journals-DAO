@@ -69,7 +69,7 @@ const Articles = () => {
             <div className={styles.card}>
                 <p>name: {prop.name}</p>
                 <p>author: {prop.author}</p>
-                <button className={styles.cardBtn} onClick={() => viewArticles()}> Obtain Viewship </button>
+                {/* <button className={styles.cardBtn} onClick={() => viewArticles()}> Obtain Viewship </button> */}
             </div>
             
         )
@@ -86,6 +86,7 @@ const Articles = () => {
                         size={item.size}
                         name={item.name}
                         author={item.author}
+                        proposalId={item.proposalId}
                     />
                 ))}
             </div>

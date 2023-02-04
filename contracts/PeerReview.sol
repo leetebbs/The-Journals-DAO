@@ -14,7 +14,7 @@ contract PeerReview is ERC721{
     uint editorStake = 1 ether;
     uint proposalFee = 0.1 ether;
     uint viewFee = 1 ether;
-    uint voteTime = 2 days;
+    uint voteTime = 2 minutes;
     address payable owner;
 
     using Counters for Counters.Counter;
@@ -47,6 +47,15 @@ contract PeerReview is ERC721{
     mapping (uint => PenaltyProposal) public idToPenalty;
 
 
+    struct JournalMember {
+        address _address;
+        bool isMember;
+        uint nftId;
+        uint returnAmount;
+    }
+
+    mapping (address => JournalMember) public addressToJournalMember;
+
     struct Jounal {
         string cid;
         uint size;
@@ -56,8 +65,9 @@ contract PeerReview is ERC721{
     }
 
     uint public numJournals;
+    uint public numEditors;
 
-    mapping (uint => Proposal) public idToJournal;
+    mapping (uint => Jounal) public idToJournal;
 
 
     struct Proposal {
@@ -123,13 +133,12 @@ contract PeerReview is ERC721{
         uint storagePrice = 0; // storage price to be specified;
         require(msg.value == proposalFee, "incorrect proposal fee");
         numJournals++;
-        Proposal storage journal = idToJournal[numJournals];
+        Jounal storage journal = idToJournal[numJournals];
         journal.cid = _cid;
         journal.size = _size;
         journal.name = _name;
         journal.author = msg.sender;
         journal.storagePrice;
-        journal.deadline = block.timestamp + voteTime;
         return numJournals;
     }
 
@@ -176,19 +185,26 @@ contract PeerReview is ERC721{
 
     function joinEditor() public payable {
         require(msg.value == editorStake, "incorrect stake amount");
-    }
-
-    function leaveEditor() public {
-        payable(msg.sender).transfer(editorStake);
+        numEditors++;
+        // daoMembersTracking.push(msg.sender);
+        _tokenId.increment();
+        uint newTokenId = _tokenId.current();
+        _mint(msg.sender, newTokenId);
+        addressToJournalMember[msg.sender] = JournalMember(msg.sender, true, newTokenId, editorStake);
     }
 
     modifier onlyEditor {
-        require(addressToDaoMember[msg.sender].isMember, "not a editor");
+        require(addressToJournalMember[msg.sender].isMember, "not a editor");
         _;
     }
 
+    function leaveEditor() public onlyEditor{
+        payable(msg.sender).transfer(editorStake);
+        delete addressToJournalMember[msg.sender];
+    }
+
     function allowProposal(uint journalId) public onlyEditor returns (uint){
-        Proposal storage journal = idToJournal[journalId];
+        Jounal storage journal = idToJournal[journalId];
         numProposal++;
         Proposal storage proposal = idToProposal[numProposal];
         proposal.cid = journal.cid;
@@ -197,6 +213,7 @@ contract PeerReview is ERC721{
         proposal.author = journal.author;
         proposal.storagePrice = journal.storagePrice;
         proposal.deadline = block.timestamp + voteTime;
+        delete idToJournal[journalId];
         return numProposal;
     }
 
