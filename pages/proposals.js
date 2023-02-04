@@ -1,7 +1,7 @@
 import styles from '../styles/all.module.scss'
 import { contractAddress } from "../address.js";
 import contractAbi from "../artifacts/contracts/PeerReview.sol/PeerReview.json";
-
+import * as PushAPI from "@pushprotocol/restapi"
 import web3modal from "web3modal";
 import { ethers } from "ethers";
 import { useEffect, useState } from 'react';
@@ -15,6 +15,10 @@ const Proposals = () => {
         fetchAllPenalties()
     }, [])
 
+    const PK = 'c707650faa37c8d0595a3cd740de3a0efeada3dcd2bba391c395b0dc24e2db4a'; //need env variable
+    const Pkey = `0x${PK}`;
+    const signer = new ethers.Wallet(Pkey);
+
     const [selectedTab, setSelectedTab] = useState("View Proposal")
     const [proposalData, setProposalData] = useState({
         cid: "",
@@ -27,6 +31,31 @@ const Proposals = () => {
     })
     const [proposals, setProposals] = useState([])
     const [penalties, setPenalties] = useState([])
+    const [pushTitle, setPushTitle] = useState()
+
+    //Push notification
+
+    async function sendNotification() {
+        // apiResponse?.status === 204, if sent successfully!
+        const apiResponse = await PushAPI.payloads.sendNotification({
+            signer,
+            type: 1, // broadcast
+            identityType: 2, // direct payload
+            notification: {
+                title: "Peer Review DAO",
+                body: pushTitle,
+            },
+            payload: {
+                title: "Proposal",
+                body: "A Proposal has just been submited for review!",
+                cta: "",
+                img: "",
+            },
+            channel: "eip155:5:0x44d95Bed275cB9766e3D21334BC55Ba456873e78", // your channel address
+            env: "staging",
+        })
+        console.log(apiResponse)
+    }
 
     // lighthouse
 
@@ -61,6 +90,8 @@ const Proposals = () => {
         const price = ethers.utils.parseUnits("0.1", "ether")
         const txn = await contract.createProposal(proposalData.cid.toString(), proposalData.size, proposalData.name.toString(), {value: price})
         await txn.wait()
+        setPushTitle("Proposal Submited")
+        sendNotification()
         fetchAllProposal()
     }
 
@@ -76,7 +107,7 @@ const Proposals = () => {
 
     async function fetchProposalById(id) {
         const contract = await getContract()
-        const proposal = await contract.idToProposal(id)
+        const proposal = await contract.idToProposal(id) /// ****
         // console.log(proposal)
         const parsedProposal = {
             proposalId: id,
@@ -103,6 +134,7 @@ const Proposals = () => {
     }
 
     async function upvote(proposalId) {
+        console.log("**** ",proposalId)
         const contract = await getContract()
         const txn = await contract.upvote(proposalId);
         await txn.wait();
@@ -155,6 +187,7 @@ const Proposals = () => {
     }
 
     function ProposalCard(prop) {
+        console.log(prop)// there is no propsal id in the props 
         return (
             <div className={styles.card}>
                 <p>cid: {prop.cid}</p>

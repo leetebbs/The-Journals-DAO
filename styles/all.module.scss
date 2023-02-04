@@ -19,6 +19,11 @@ $darkPink: #ffb0b0;
   background-color: black;
   color: white;
   width: 15%;
+  .logo{
+    width:12rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
 
   .container {
     display: flex;
@@ -91,6 +96,13 @@ $darkPink: #ffb0b0;
     }
   }
 
+<<<<<<< HEAD
+=======
+  p {
+    display: inline;
+  }
+
+>>>>>>> 62af130f103b7a356997d79098899a582ad3fc16
 }
 
 // proposals
@@ -248,4 +260,76 @@ $darkPink: #ffb0b0;
   // width: 100%;
   place-items: center;
   margin-left: 10%;
+}
+
+//Textroom
+
+.textroom{
+  padding: 3rem 2rem 1rem 2rem;
+  background-color: $background;
+  color: white;
+  width: 100%;
+
+  .sdktriggerid{
+    margin-left:8rem;
+    margin-top:3rem;
+  }
+
+    button {
+      font-size: 110%;
+      background-color: rgb(241, 211, 250);
+      border: none;
+      padding: 0.3rem 1.1rem;
+      border-radius: 2px;
+    }
+  
+    button:hover {
+      background-color: $darkPink;
+    }
+
+    .bell{
+      width:3rem;
+    }
+
+    .pushCard {
+      border: 0.5px solid $pinkColor;
+      width: 28rem;
+      padding: 0 1rem 1.5rem 1.5em;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+  
+      img {
+        width: 100%;
+      }
+  
+      .pushTitle {
+        font-size: 120%;
+        color: $pinkColor;
+        font-weight: 400;
+      }
+  
+      button {
+        background-color: $pinkColor;
+        padding: 0.3rem 1.2rem;
+        border: none;
+        border-radius: 2px;
+        font-size: 100%;
+        margin:1rem;
+      }
+  
+      button:hover {
+        background-color: $darkPink;
+      }
+
+      .options{
+        display:flex;
+        gap:3rem;
+      }
+      .bell{
+        padding-top: 2rem;
+        width:3rem;
+      }
+    }
+  
 }
