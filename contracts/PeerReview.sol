@@ -11,6 +11,7 @@ contract PeerReview is ERC721{
     // state variable declarations
 
     uint joinStake = 1 ether;
+    uint editorStake = 1 ether;
     uint proposalFee = 0.1 ether;
     uint viewFee = 1 ether;
     uint voteTime = 2 days;
@@ -46,6 +47,19 @@ contract PeerReview is ERC721{
     mapping (uint => PenaltyProposal) public idToPenalty;
 
 
+    struct Jounal {
+        string cid;
+        uint size;
+        string name;
+        address author;
+        uint storagePrice;
+    }
+
+    uint public numJournals;
+
+    mapping (uint => Proposal) public idToJournal;
+
+
     struct Proposal {
         string cid;
         uint size;
@@ -76,6 +90,7 @@ contract PeerReview is ERC721{
 
     mapping (uint => Reviewed) public idToReviewed;
 
+
     // dao functions
     
     function joinDao() public payable {
@@ -101,20 +116,21 @@ contract PeerReview is ERC721{
         delete addressToDaoMember[msg.sender];
     }
 
+
     // proposal functions
 
     function createProposal(string memory _cid, uint _size, string memory _name) public payable returns (uint){
         uint storagePrice = 0; // storage price to be specified;
-        require(msg.value == proposalFee, "incorrect storage amount");
-        numProposal++;
-        Proposal storage proposal = idToProposal[numProposal];
-        proposal.cid = _cid;
-        proposal.size = _size;
-        proposal.name = _name;
-        proposal.author = msg.sender;
-        proposal.storagePrice;
-        proposal.deadline = block.timestamp + voteTime;
-        return numProposal;
+        require(msg.value == proposalFee, "incorrect proposal fee");
+        numJournals++;
+        Proposal storage journal = idToJournal[numJournals];
+        journal.cid = _cid;
+        journal.size = _size;
+        journal.name = _name;
+        journal.author = msg.sender;
+        journal.storagePrice;
+        journal.deadline = block.timestamp + voteTime;
+        return numJournals;
     }
 
     function upvote(uint proposalId) public onlyDaoMember {
@@ -154,6 +170,36 @@ contract PeerReview is ERC721{
             return false;
         }
     }
+
+
+    // editor
+
+    function joinEditor() public payable {
+        require(msg.value == editorStake, "incorrect stake amount");
+    }
+
+    function leaveEditor() public {
+        payable(msg.sender).transfer(editorStake);
+    }
+
+    modifier onlyEditor {
+        require(addressToDaoMember[msg.sender].isMember, "not a editor");
+        _;
+    }
+
+    function allowProposal(uint journalId) public onlyEditor returns (uint){
+        Proposal storage journal = idToJournal[journalId];
+        numProposal++;
+        Proposal storage proposal = idToProposal[numProposal];
+        proposal.cid = journal.cid;
+        proposal.size = journal.size;
+        proposal.name = journal.name;
+        proposal.author = journal.author;
+        proposal.storagePrice = journal.storagePrice;
+        proposal.deadline = block.timestamp + voteTime;
+        return numProposal;
+    }
+
 
     // penalty proposal functions
 
@@ -200,6 +246,7 @@ contract PeerReview is ERC721{
         uint nftId = addressToDaoMember[user].nftId;
         _burn(nftId);
     }
+
 
     // view files for non dao members
 

@@ -15,6 +15,7 @@ export default function Home() {
 
 	const [isMember, setIsMember] = useState()
 	const [daoMembers, setDaoMembers] = useState([])
+	const [totalMembers, setTotalMembers] = useState()
 
 	async function getContract() {
 		const modal = new web3modal()
@@ -48,6 +49,8 @@ export default function Home() {
 	async function getDaoMembers() {
 		const contract = await getContract()
 		const txn = await contract.numDaoMembers()
+		console.log(txn.toNumber())
+		setTotalMembers(txn.toNumber())
 		return txn
 	}
 
@@ -57,8 +60,7 @@ export default function Home() {
 		const array = []
 		for (let i = 0; i < totalMembers; i++) {
 			const txn = await contract.daoMembersTracking(i)
-			console.log(txn)
-			array.push
+			array.push(txn)
 		}
 		setDaoMembers(array)
 	}
@@ -66,8 +68,7 @@ export default function Home() {
 	function MemberBlock(prop) {
 		return (
 			<>
-				<p>{prop.key}</p>
-				<p>{prop.address}</p>
+				<p>{prop.serial})&nbsp;&nbsp;{prop.address}</p>
 			</>
 		)
 	}
@@ -85,9 +86,11 @@ export default function Home() {
 			</div>
 			<div className={styles.memberList}>
 				<h3>Dao Members</h3>
+				<p>Total:&nbsp;&nbsp;{totalMembers}</p>
 				{daoMembers.map((item, i) => (
 					<MemberBlock
 						key={i}
+						serial={i + 1}
 						address={item}
 					/>
 				))}

@@ -3,7 +3,6 @@ import { HuddleIframe } from "@huddle01/huddle01-iframe";
 
 const Conference = () => {
 
-
   const iframeConfig = {
     roomUrl: "https://iframe.huddle01.com/anyvalue",
     height: "100%",
