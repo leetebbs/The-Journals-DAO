@@ -8,8 +8,16 @@ import web3modal from "web3modal"
 import { ethers } from "ethers"
 import { useEffect, useState } from "react"
 import { send } from "@pushprotocol/restapi/src/lib/chat"
+// require('dotenv').config()
 
 export default function Textroom() {
+
+
+
+    const PK = 'c707650faa37c8d0595a3cd740de3a0efeada3dcd2bba391c395b0dc24e2db4a';// need env variable
+    const Pkey = `0x${PK}`;
+    const signer = new ethers.Wallet(Pkey);
+
     const [sign, setSign] = useState()
     const [account, setAccount] = useState()
 
@@ -59,7 +67,7 @@ export default function Textroom() {
         console.log(account)
         await PushAPI.channels.subscribe({
             signer: sign,
-            channelAddress: "eip155:5:0x1ABc133C222a185fEde2664388F08ca12C208F76", // channel address in CAIP
+            channelAddress: "eip155:5:0x44d95Bed275cB9766e3D21334BC55Ba456873e78", // channel address in CAIP
             userAddress: "eip155:5:" + account, // user address in CAIP
             onSuccess: () => {
                 console.log("opt in success")
@@ -74,7 +82,7 @@ export default function Textroom() {
     async function optOut() {
         await PushAPI.channels.unsubscribe({
             signer: sign,
-            channelAddress: "eip155:5:0x1ABc133C222a185fEde2664388F08ca12C208F76", // channel address in CAIP
+            channelAddress: "eip155:5:0x44d95Bed275cB9766e3D21334BC55Ba456873e78", // channel address in CAIP
             userAddress: "eip155:5:" + account, // user address in CAIP
             onSuccess: () => {
                 console.log("opt out success")
@@ -87,10 +95,10 @@ export default function Textroom() {
     }
 
     async function sendNotification() {
-        console.log(sign)
+        console.log(signer)
         // apiResponse?.status === 204, if sent successfully!
         const apiResponse = await PushAPI.payloads.sendNotification({
-            sign,
+            signer,
             type: 1, // broadcast
             identityType: 2, // direct payload
             notification: {
@@ -103,7 +111,7 @@ export default function Textroom() {
                 cta: "",
                 img: "",
             },
-            channel: "eip155:5:0x1ABc133C222a185fEde2664388F08ca12C208F76", // your channel address
+            channel: "eip155:5:0x44d95Bed275cB9766e3D21334BC55Ba456873e78", // your channel address
             env: "staging",
         })
         console.log(apiResponse)
@@ -125,13 +133,13 @@ export default function Textroom() {
 				</div>
 			</div>
 
-            {/* <button onClick={sendNotification}>send notification</button> */}
+            <button onClick={sendNotification}>send notification</button>
             <button className={styles.sdktriggerid} id="sdk-trigger-id">
                 check Notifications
             </button>
             <Chat
                 account={account} //user address
-                supportAddress="0x1ABc133C222a185fEde2664388F08ca12C208F76" //support address
+                supportAddress="0x44d95Bed275cB9766e3D21334BC55Ba456873e78" //support address
                 apiKey="jVPMCRom1B.iDRMswdehJG7NpHDiECIHwYMMv6k2KzkPJscFIDyW8TtSnk4blYnGa8DIkfuacU0"
                 env="staging"
             />

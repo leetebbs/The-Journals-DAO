@@ -21,6 +21,7 @@
     "@pushprotocol/restapi": "0.2.1",
     "@pushprotocol/uiweb": "0.2.3",
     "@rainbow-me/rainbowkit": "^0.8.1",
+    "@web3-react/core": "^6.1.9",
     "chai": "^4.3.7",
     "connectkit": "^1.1.1",
     "dotenv": "^16.0.3",
