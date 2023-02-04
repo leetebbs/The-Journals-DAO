@@ -14,7 +14,7 @@ contract PeerReview is ERC721{
     uint editorStake = 1 ether;
     uint proposalFee = 0.1 ether;
     uint viewFee = 1 ether;
-    uint voteTime = 2 minutes;
+    uint voteTime = 2 days;
     address payable owner;
 
     using Counters for Counters.Counter;
@@ -144,7 +144,7 @@ contract PeerReview is ERC721{
 
     function upvote(uint proposalId) public onlyDaoMember {
         Proposal storage proposal = idToProposal[proposalId];
-        require(proposal.deadline > block.timestamp, "deadline exceeded");
+        // require(proposal.deadline > block.timestamp, "deadline exceeded");
         require(!proposal.voted[msg.sender], "user already voted");
         proposal.upvote++;
     }
@@ -158,7 +158,7 @@ contract PeerReview is ERC721{
 
     function execute(uint proposalId) public onlyDaoMember returns (bool) {
         Proposal storage proposal = idToProposal[proposalId];
-        require(proposal.deadline <= block.timestamp, "deadline exceeded");
+        // require(proposal.deadline <= block.timestamp, "deadline exceeded");
         require(!proposal.executed, "proposal already executed");
         if (proposal.upvote > proposal.downvote) {
             numReviewed++;
@@ -170,12 +170,14 @@ contract PeerReview is ERC721{
             proposal.canWeStoreThis = true;
             proposal.executed = true;
             delete idToProposal[proposalId];
+            numProposal--;
             return true;
         }
         else {
             proposal.canWeStoreThis = false;
             proposal.executed = true;
             delete idToProposal[proposalId];
+            numProposal--;
             return false;
         }
     }
@@ -214,6 +216,7 @@ contract PeerReview is ERC721{
         proposal.storagePrice = journal.storagePrice;
         proposal.deadline = block.timestamp + voteTime;
         delete idToJournal[journalId];
+        numJournals--;
         return numProposal;
     }
 

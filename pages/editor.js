@@ -20,7 +20,7 @@ const Editor = () => {
     const [numEditors, setNumEditors] = useState(0)
     const [isEditor, setIsEditor] = useState()
     const [journals, setJournals] = useState([])
-    
+
     async function getContract() {
         const modal = new web3modal();
         const connection = await modal.connect()
@@ -29,14 +29,14 @@ const Editor = () => {
         const contract = new ethers.Contract(contractAddress, contractAbi.abi, signer)
         return contract
     }
-    
+
     async function checkMember() {
         const contract = await getContract()
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const txn = await contract.addressToJournalMember(accounts[0])
         setIsEditor(txn[1])
     }
-    
+
     async function getTotalEditors() {
         const contract = await getContract()
         const txn = await contract.numEditors()
@@ -45,19 +45,19 @@ const Editor = () => {
     }
 
     async function handleJoinEditor() {
-		const contract = await getContract()
-		const price = ethers.utils.parseUnits("1", "ether")
-		const data = await contract.joinEditor({ value: price });
-		await data.wait();
+        const contract = await getContract()
+        const price = ethers.utils.parseUnits("1", "ether")
+        const data = await contract.joinEditor({ value: price });
+        await data.wait();
         checkMember()
-	}
+    }
 
-	async function handleLeaveEditor() {
-		const contract = await getContract()
-		const txn = await contract.leaveEditor()
-		await txn.wait()
+    async function handleLeaveEditor() {
+        const contract = await getContract()
+        const txn = await contract.leaveEditor()
+        await txn.wait()
         checkMember()
-	}
+    }
 
     async function getNumJournalsInDAO() {
         try {
@@ -122,16 +122,17 @@ const Editor = () => {
             <h1>Editor Section</h1>
             <p>Number of editors: {numEditors}</p>
             {isEditor ? <button className={styles.btn} onClick={handleLeaveEditor}>Leave</button> : <button className={styles.btn} onClick={handleJoinEditor}>Become Editor</button>}
-            <div className={styles.editorSection}>
-            {journals.map((item, i) => (
-                        <JournalCard
-                            key={i}
-                            cid={item.cid}
-                            size={item.size}
-                            name={item.name}
-                            proposalId={item.proposalId}
-                        />
-                    ))}
+            <div className={styles.cardContainer}>
+                {journals.map((item, i) => (
+                    <JournalCard
+                        key={i}
+                        cid={item.cid}
+                        size={item.size}
+                        name={item.name}
+                        proposalId={item.proposalId}
+                        author={item.author}
+                    />
+                ))}
             </div>
         </div>
     )

@@ -197,9 +197,9 @@ $darkPink: #ffb0b0;
   }
 
   .cardContainer {
-
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
   }
 }
 
@@ -211,10 +211,30 @@ $darkPink: #ffb0b0;
   color: white;
   width: 100%;
 
-  .card {
-    border-radius: 4px;
-    margin-right: 2rem;
+  .cardContainer {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
+
+  .card {
+    padding: 1rem;
+    padding-top: 0.1rem;
+    background-color: #323235;
+    border-radius: 4px;
+    width: 32%;
+
+    .cardBtns {
+      display: flex;
+      gap: 0.5rem;
+
+      .cardBtn {
+        background-color: #121214;
+        color: white;
+        padding: 0.2rem 0.8rem;
+      }
+    }
 }
 
 // editor
@@ -224,6 +244,37 @@ $darkPink: #ffb0b0;
   background-color: $background;
   color: white;
   width: 100%;
+
+  .btn {
+    background-color: $darkPink;
+    padding: 0.3rem 1rem;
+  }
+
+  .cardContainer {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    padding: 1rem;
+    padding-top: 0.1rem;
+    background-color: #323235;
+    border-radius: 4px;
+    width: 32%;
+
+    .cardBtns {
+      display: flex;
+      gap: 0.5rem;
+
+      .cardBtn {
+        background-color: #121214;
+        color: white;
+        padding: 0.2rem 0.8rem;
+      }
+    }
+  }
 }
 
 // others
