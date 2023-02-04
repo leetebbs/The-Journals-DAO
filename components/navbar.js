@@ -6,7 +6,7 @@ import Login from './login'
 export const Navbar = () => {
   return (
     <div className={styles.sidebar}>
-        <Link href="/"><h1>Test</h1></Link>
+        <Link href="/"><img className={styles.logo}src = "peer.png"/></Link>
         <Login />
         <div className={styles.container}>
             <Link href="/"><p>Homepage</p></Link>
