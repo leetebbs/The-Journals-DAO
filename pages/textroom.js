@@ -135,9 +135,9 @@ export default function Textroom() {
 
             {/* <button onClick={sendNotification}>send notification</button> */}
             <button className={styles.sdktriggerid} id="sdk-trigger-id">
-                check Notifications
+                Check notifications
             </button>
-            <p>Connect wallet to Goerli</p>
+            <p>(Connect wallet to Goerli)</p>
             <Chat
                 account={account} //user address
                 supportAddress="0x44d95Bed275cB9766e3D21334BC55Ba456873e78" //support address

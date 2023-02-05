@@ -112,6 +112,7 @@ const Editor = () => {
                 <p>author: {prop.author}</p>
                 <div className={styles.cardBtns}>
                     <button className={styles.cardBtn} onClick={() => approve(prop.proposalId)}> Approve </button>
+                    <button className={styles.cardBtn} onClick={() => approve(prop.proposalId)}> Disapprove </button>
                     <button className={styles.cardBtn}><Link target="_blank" rel="noreferrer" href={`https://gateway.lighthouse.storage/ipfs/${prop.cid}`}>Read</Link></button>
                 </div>
             </div>
