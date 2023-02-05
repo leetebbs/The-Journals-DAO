@@ -119,7 +119,7 @@ export default function Textroom() {
 
     return (
         <div className={styles.textroom}>
-            <h1 className={styles.heading}>Recieve Notifications</h1>
+            {/* <h1 className={styles.heading}>Recieve Notifications</h1> */}
 			<div className={styles.pushCard}>
 			<img className={styles.bell} src="pushBell.png"></img>
 				<h1>Opt in to Notifications</h1>
@@ -137,6 +137,7 @@ export default function Textroom() {
             <button className={styles.sdktriggerid} id="sdk-trigger-id">
                 check Notifications
             </button>
+            <p>Connect wallet to Goerli</p>
             <Chat
                 account={account} //user address
                 supportAddress="0x44d95Bed275cB9766e3D21334BC55Ba456873e78" //support address

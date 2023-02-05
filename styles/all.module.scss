@@ -340,6 +340,9 @@ $purple: rgb(241, 211, 250);
 //Textroom
 
 .textroom{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
   padding: 3rem 2rem 1rem 2rem;
   background-color: $background;
   color: white;
@@ -350,7 +353,6 @@ $purple: rgb(241, 211, 250);
   }
 
   .sdktriggerid{
-    margin-left:8rem;
     margin-top:3rem;
   }
 
@@ -391,7 +393,8 @@ $purple: rgb(241, 211, 250);
     .pushCard {
       border: 0.5px solid $pinkColor;
       width: 28rem;
-      padding: 0 1rem 1.5rem 1.5em;
+      padding: 0 2rem 1.5rem 1.5em;
+      margin-top: 3rem;
       display:flex;
       flex-direction: column;
       align-items: center;
