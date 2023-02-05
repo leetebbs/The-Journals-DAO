@@ -13,7 +13,7 @@ This project allows the free flow of information in a controlled, private and de
 
 <br/>
 
-<img title="img" alt="img" src="./public/peer-review.jpeg">
+<img title="img" alt="img" src="./public/peerreview.gif">
 
 <br />
 
