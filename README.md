@@ -10,6 +10,7 @@ This project allows the free flow of information in a controlled, private and de
 - If any dao member or editor is found cheating then other members can pass a penalty against him which if voted then his stake would be deducted by 10%.
 - For every proposal these members vote or editors approve, they get a portion of the proposal fee added to their return stake.
 - Anytime these dao members or editors can leave the dao and their stake would be returned.
+- Non-dao members can get access to these articles by paying a one time fee.
 
 <br/>
 
