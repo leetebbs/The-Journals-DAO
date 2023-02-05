@@ -2,7 +2,6 @@ import { Navbar } from '../components/navbar'
 import '../styles/globals.css'
 import styles from '../styles/all.module.scss'
 import {
-  chain,
   configureChains,
   createClient,
   WagmiConfig,
