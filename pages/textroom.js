@@ -124,7 +124,7 @@ export default function Textroom() {
 			<img className={styles.bell} src="pushBell.png"></img>
 				<h1>Opt in to Notifications</h1>
 				<p>Recieve notifications from Peer Review Dao with Push</p>
-				<a href="https://chrome.google.com/webstore/detail/push-protocol-alpha/lbdcbpaldalgiieffakjhiccoeebchmg" target="_blank">
+				<a href="https://chrome.google.com/webstore/detail/push-protocol-alpha/lbdcbpaldalgiieffakjhiccoeebchmg" target="_blank" rel="noreferrer">
 					<button>Push Alpha Extention</button>
 				</a>
 				<div className={styles.options}>
