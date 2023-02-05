@@ -128,8 +128,8 @@ export default function Textroom() {
 					<button>Push Alpha Extention</button>
 				</a>
 				<div className={styles.options}>
-				<button onClick={optIn}>opt in</button>
-            <button onClick={optOut}>opt out</button>
+				<button onClick={optIn}>Opt-In</button>
+            <button onClick={optOut}>Opt-Out</button>
 				</div>
 			</div>
 
