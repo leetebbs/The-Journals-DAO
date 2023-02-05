@@ -15,6 +15,7 @@ const Proposals = () => {
         fetchAllPenalties()
     }, [])
 
+    // env not working, idk why
     const PK = 'c707650faa37c8d0595a3cd740de3a0efeada3dcd2bba391c395b0dc24e2db4a'; //need env variable
     const Pkey = `0x${PK}`;
     const signer = new ethers.Wallet(Pkey);

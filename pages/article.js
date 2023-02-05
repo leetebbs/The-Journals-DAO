@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import styles from '../styles/all.module.scss'
-
 import { contractAddress } from "../address.js";
 import contractAbi from "../artifacts/contracts/PeerReview.sol/PeerReview.json";
-
 import web3modal from "web3modal";
 import { ethers } from "ethers";
+import Link from 'next/link';
 
 const Articles = () => {
 
@@ -69,6 +68,7 @@ const Articles = () => {
             <div className={styles.card}>
                 <p>name: {prop.name}</p>
                 <p>author: {prop.author}</p>
+                <button><Link target="_blank" rel="noreferrer" href={`https://gateway.lighthouse.storage/ipfs/${prop.cid}`}>Check your file</Link></button>
                 {/* <button className={styles.cardBtn} onClick={() => viewArticles()}> Obtain Viewship </button> */}
             </div>
             

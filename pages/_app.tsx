@@ -7,7 +7,6 @@ import {
   createClient,
   WagmiConfig,
 } from 'wagmi';
-import Login from '@/components/login';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
@@ -39,7 +38,7 @@ const wallaby = {
   network: 'Wallaby testnet', 
   nativeCurrency: { 
     decimals: 18, 
-    name: 'tFIL', 
+    name: 'Filecoin', 
     symbol: 'tFIL', 
   }, 
   rpcUrls: { 
