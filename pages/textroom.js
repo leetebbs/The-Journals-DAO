@@ -133,7 +133,7 @@ export default function Textroom() {
 				</div>
 			</div>
 
-            <button onClick={sendNotification}>send notification</button>
+            {/* <button onClick={sendNotification}>send notification</button> */}
             <button className={styles.sdktriggerid} id="sdk-trigger-id">
                 check Notifications
             </button>
