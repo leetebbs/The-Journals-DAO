@@ -4,6 +4,7 @@ $background: #121214;
 $pinkColor: #ffcece;
 $cyan: rgb(181, 240, 253);
 $darkPink: #ffb0b0;
+$purple: rgb(241, 211, 250);
 
 // global
 
@@ -57,6 +58,7 @@ $darkPink: #ffb0b0;
     border: 0.5px solid $pinkColor;
     width: 26rem;
     padding: 0 1rem 1.5rem 1.5em;
+    font-size: 110%;
 
     img {
       width: 100%;
@@ -69,7 +71,7 @@ $darkPink: #ffb0b0;
     }
 
     button {
-      background-color: $pinkColor;
+      background-color: $purple;
       padding: 0.3rem 1.2rem;
       border: none;
       border-radius: 2px;
@@ -147,7 +149,7 @@ $darkPink: #ffb0b0;
     }
 
     input[type=file]::file-selector-button {
-      background-color: rgb(241, 211, 250);
+      background-color: $purple;
     }
 
     input::placeholder {
@@ -162,7 +164,7 @@ $darkPink: #ffb0b0;
 
     button {
       font-size: 110%;
-      background-color: rgb(241, 211, 250);
+      background-color: $purple;
       border: none;
       padding: 0.3rem 1.1rem;
       border-radius: 2px;
@@ -211,10 +213,15 @@ $darkPink: #ffb0b0;
   color: white;
   width: 100%;
 
+  h1 {
+    color: $darkPink;
+  }
+
   .cardContainer {
     margin-top: 3rem;
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 1.5rem;
     flex-wrap: wrap;
   }
 
@@ -258,9 +265,13 @@ $darkPink: #ffb0b0;
   color: white;
   width: 100%;
 
+  h1 {
+    color: $pinkColor;
+  }
+
   .btn {
     font-size: 110%;
-    background-color: rgb(241, 211, 250);
+    background-color: $purple;
     border: none;
     padding: 0.3rem 1.1rem;
     border-radius: 2px;
@@ -333,6 +344,10 @@ $darkPink: #ffb0b0;
   background-color: $background;
   color: white;
   width: 100%;
+
+  .heading {
+    color: $darkPink;
+  }
 
   .sdktriggerid{
     margin-left:8rem;

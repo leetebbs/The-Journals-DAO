@@ -71,7 +71,6 @@ const Articles = () => {
                 <button className={styles.articleButton}><Link target="_blank" rel="noreferrer" href={`https://gateway.lighthouse.storage/ipfs/${prop.cid}`}>Check article</Link></button>
                 {/* <button className={styles.cardBtn} onClick={() => viewArticles()}> Obtain Viewship </button> */}
             </div>
-            
         )
     }
 

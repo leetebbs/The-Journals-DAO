@@ -119,7 +119,7 @@ export default function Textroom() {
 
     return (
         <div className={styles.textroom}>
-            <h1>Recieve Notifications</h1>
+            <h1 className={styles.heading}>Recieve Notifications</h1>
 			<div className={styles.pushCard}>
 			<img className={styles.bell} src="pushBell.png"></img>
 				<h1>Opt in to Notifications</h1>
