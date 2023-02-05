@@ -1,40 +1,54 @@
-## issues:::
-daomembers card has no key being passed in props
-anyone can upload and propose
-upvote throws an error invaild bignumber value
-down vote throws invalid bignumber value
-execute throws invalid bignumber value
-penalize card not showing data
-penalize card votes all throw bignumber value errors
+# The Journal Dao
 
+This project allows the free flow of information in a controlled, private and decentralised manner. At the moment it takes an age for proposers to get peer reviewed, sometimes months or maybe years. We make this process the shortest by implementing it over a blockchain.
 
+### About Project
+- Users can join the dao as a dao member or as an editor by staking a stake fee.
+- Any user can create proposals for getting their papers reviewed by uploading their papers and paying a minimal proposal fee.
+- Editors can approve or disapprove these proposals to be put out in dao and get reviewed
+- Dao members can read these proposals and vote on them
+- If any dao member or editor is found cheating then other members can pass a penalty against him which if voted then his stake would be deducted by 10%.
+- For every proposal these members vote or editors approve, they get a portion of the proposal fee added to their return stake.
+- Anytime these dao members or editors can leave the dao and their stake would be returned.
 
-## Data Dao
-Peer review system - Creating a database of certified scientific studies
+<br/>
 
-What it does ?
-- a dao that votes on and accepts quality articles
-- then stores those articles on on filecoin network
+<img title="img" alt="img" src="./public/peer-review.jpeg">
 
-A Scientific Paper Review DAO is a decentralized autonomous organization that uses blockchain technology to facilitate the peer review process of scientific papers. The aim of this type of organization is to make the review process more transparent, secure, and efficient by using smart contracts and tokens. In a Scientific Paper Review DAO, authors can submit their papers for review. The review process is managed by a set of rules encoded as smart contracts, ensuring that the process is fair, transparent, and tamper-proof. The ultimate goal is to provide a more equitable and efficient way of evaluating scientific research and promoting the dissemination of knowledge in the scientific community.
+<br />
 
-## Flow
-- people become member by staking 
-- regular dao shits
-- if proposal passed, article gets stored on filecoin
-- dao members can remove any member if found cheating by passing resolution against him and his stake wouldn't be refunded
-- if dao member wants to leave, he can leave after a fixed number of proposals and his stake would be refunded
+### Built with
+- SCSS
+- Next.js
+- Solidity
+- Ether.js
+- Lighthouse
+- Huddle01
+- Push Protocol
+- FEVM
 
-- dao members can do token gated meetings with huddle
-- dao members can chat with each other using push protocol 
+<br/>
 
-- project gets deployed on spheron ( will have to get rid of build errors )
+### Installation
 
-## Deploy on Vercel
+1. Clone the repo
+   ```sh
+   git clone https://github.com/anshss/peer-reviewed.git
+   
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
+   
+3. Start project
+   ```sh
+   npm run dev
+   ```
+  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<br/>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-
-
+[Video explanation]()
+<br/>
+<br/>
