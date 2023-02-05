@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
 
   // ------------
 
-   const hyperspace = {
+  const hyperspace = {
     id: 3_141,
     name: 'Hyperspace',
     network: 'Hyperspace',
@@ -30,67 +30,81 @@ function MyApp({ Component, pageProps }) {
     rpcUrls: {
       default: "https://filecoin-hyperspace.chainstacklabs.com/rpc/v0",
     },
-}
+  }
 
-const wallaby = { 
-  id: 31415, 
-  name: 'Wallaby testnet', 
-  network: 'Wallaby testnet', 
-  nativeCurrency: { 
-    decimals: 18, 
-    name: 'Filecoin', 
-    symbol: 'tFIL', 
-  }, 
-  rpcUrls: { 
-    default: 'https://wallaby.filfox.info/rpc/v0', 
-  }, 
-  blockExplorers: { 
-    default: { name: 'Filfox Explorer', url: 'https://wallaby.filfox.info/en' }, 
-  }, 
-  testnet: true, 
-} 
+  const wallaby = {
+    id: 31415,
+    name: 'Wallaby testnet',
+    network: 'Wallaby testnet',
+    nativeCurrency: {
+      decimals: 18,
+      name: 'Filecoin',
+      symbol: 'tFIL',
+    },
+    rpcUrls: {
+      default: 'https://wallaby.filfox.info/rpc/v0',
+    },
+    blockExplorers: {
+      default: { name: 'Filfox Explorer', url: 'https://wallaby.filfox.info/en' },
+    },
+    testnet: true,
+  }
+
+  const goerli = {
+    id: 5,
+    name: 'Goerli',
+    network: 'Hyperspace',
+    nativeCurrency: {
+      decimals: 18,
+      name: 'Goerli  test network',
+      symbol: 'GoerliETH',
+    },
+    rpcUrls: {
+      default: "https://goerli.infura.io/v3/",
+    },
+  }
 
 
-const { chains, provider} = configureChains(
-[hyperspace, wallaby],
-[
-  jsonRpcProvider({
-    rpc: (chain) => ({
-      http: `https://filecoin-hyperspace.chainstacklabs.com/rpc/v0`,
-    }),
-  }),
-],
-)
+  const { chains, provider } = configureChains(
+    [hyperspace, goerli],
+    [
+      jsonRpcProvider({
+        rpc: (chain) => ({
+          http: `https://filecoin-hyperspace.chainstacklabs.com/rpc/v0`,
+        }),
+      }),
+    ],
+  )
 
-const client = createClient({
-  autoConnect: true,
-  connectors: [
-    new MetaMaskConnector({ chains }),
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName: 'ThePeerDao',
-      },
-    }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        qrcode: true,
-      },
-    }),
-  ],
-  provider,
-})
+  const client = createClient({
+    autoConnect: true,
+    connectors: [
+      new MetaMaskConnector({ chains }),
+      new CoinbaseWalletConnector({
+        chains,
+        options: {
+          appName: 'ThePeerDao',
+        },
+      }),
+      new WalletConnectConnector({
+        chains,
+        options: {
+          qrcode: true,
+        },
+      }),
+    ],
+    provider,
+  })
 
 
   return (
-      <WagmiConfig client={client}>
-         <ConnectKitProvider>
-          <div className={styles.app} >
-         <Navbar />
-        <Component {...pageProps} />
-         </div>
-     </ConnectKitProvider>
+    <WagmiConfig client={client}>
+      <ConnectKitProvider>
+        <div className={styles.app} >
+          <Navbar />
+          <Component {...pageProps} />
+        </div>
+      </ConnectKitProvider>
     </WagmiConfig>
   )
 }

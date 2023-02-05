@@ -198,6 +198,7 @@ const Proposals = () => {
                     <button className={styles.cardBtn} onClick={() => upvote(prop.proposalId)}> Upvote </button>
                     <button className={styles.cardBtn} onClick={() => downvote(prop.proposalId)}> Downvote </button>
                     <button className={styles.cardBtn} onClick={() => executeProposal(prop)}> Execute </button>
+                    <button className={styles.cardBtn}><Link target="_blank" rel="noreferrer" href={`https://gateway.lighthouse.storage/ipfs/${prop.cid}`}>Read</Link></button>
                 </div>
             </div>
         )

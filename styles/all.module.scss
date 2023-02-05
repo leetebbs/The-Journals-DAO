@@ -236,6 +236,18 @@ $darkPink: #ffb0b0;
       }
     }
   }
+
+  .articleButton {
+    font-size: 100%;
+    background-color: rgb(241, 211, 250);
+    border: none;
+    padding: 0.2rem 0.8rem;
+    border-radius: 2px;
+  }
+
+  .articleButton:hover {
+    background-color: $darkPink;
+  }
 }
 
 // editor
@@ -247,8 +259,15 @@ $darkPink: #ffb0b0;
   width: 100%;
 
   .btn {
+    font-size: 110%;
+    background-color: rgb(241, 211, 250);
+    border: none;
+    padding: 0.3rem 1.1rem;
+    border-radius: 2px;
+  }
+
+  .btn:hover {
     background-color: $darkPink;
-    padding: 0.3rem 1rem;
   }
 
   .cardContainer {

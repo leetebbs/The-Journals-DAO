@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import styles from '../styles/all.module.scss'
-
 import { contractAddress } from "../address.js"
 import contractAbi from "../artifacts/contracts/PeerReview.sol/PeerReview.json"
 import web3modal from "web3modal"
 import { ethers } from "ethers"
 import { useRouter } from "next/router";
+import Link from 'next/link';
 
 const Editor = () => {
 
@@ -112,6 +112,7 @@ const Editor = () => {
                 <p>author: {prop.author}</p>
                 <div className={styles.cardBtns}>
                     <button className={styles.cardBtn} onClick={() => approve(prop.proposalId)}> Approve </button>
+                    <button className={styles.cardBtn}><Link target="_blank" rel="noreferrer" href={`https://gateway.lighthouse.storage/ipfs/${prop.cid}`}>Read</Link></button>
                 </div>
             </div>
         )
