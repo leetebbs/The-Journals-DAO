@@ -16,14 +16,16 @@ $purple: rgb(241, 211, 250);
 // sidebar
 
 .sidebar {
-  padding: 0 2rem;
+  padding: 0 3rem;
   background-color: black;
   color: white;
-  width: 15%;
+  width: 12%;
+
   .logo{
-    width:12rem;
+    width: 12rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    margin-left: -1.4rem;
   }
 
   .container {
@@ -45,7 +47,7 @@ $purple: rgb(241, 211, 250);
 // homepage
 
 .home {
-  padding: 3rem 2rem 1rem 2rem;
+  padding: 3rem 2rem 1rem 3rem;
   background-color: $background;
   color: white;
   width: 100%;
@@ -55,7 +57,7 @@ $purple: rgb(241, 211, 250);
   }
 
   .daoCard {
-    margin-left: 2rem;
+    margin-left: 0rem;
     border: 0.5px solid $pinkColor;
     width: 26rem;
     padding: 0 1rem 1.5rem 1.5em;
@@ -108,7 +110,7 @@ $purple: rgb(241, 211, 250);
 // proposals
 
 .proposals {
-  padding: 3rem 2rem 1rem 2rem;
+  padding: 3rem 2rem 1rem 3rem;
   background-color: $background;
   color: white;
   width: 100%;
@@ -213,7 +215,7 @@ $purple: rgb(241, 211, 250);
 // articles
 
 .articles {
-  padding: 3rem 2rem 1rem 2rem;
+  padding: 3rem 2rem 1rem 3rem;
   background-color: $background;
   color: white;
   width: 100%;
@@ -265,7 +267,7 @@ $purple: rgb(241, 211, 250);
 // editor
 
 .editor {
-  padding: 3rem 2rem 1rem 2rem;
+  padding: 3rem 2rem 1rem 3rem;
   background-color: $background;
   color: white;
   width: 100%;
