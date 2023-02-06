@@ -4,7 +4,6 @@ import { contractAddress } from "../address.js"
 import contractAbi from "../artifacts/contracts/PeerReview.sol/PeerReview.json"
 import web3modal from "web3modal"
 import { ethers } from "ethers"
-import { useRouter } from "next/router";
 import Link from 'next/link';
 
 const Editor = () => {
@@ -14,8 +13,6 @@ const Editor = () => {
         getTotalEditors()
         checkMember()
     }, [])
-
-    const router = useRouter();
 
     const [numEditors, setNumEditors] = useState(0)
     const [isEditor, setIsEditor] = useState()

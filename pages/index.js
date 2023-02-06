@@ -5,7 +5,7 @@ import contractAbi from "../artifacts/contracts/PeerReview.sol/PeerReview.json"
 import web3modal from "web3modal"
 import { ethers } from "ethers"
 import { useEffect, useState } from "react"
-// />
+
 export default function Home() {
 
 	const [isMember, setIsMember] = useState()
@@ -85,7 +85,7 @@ export default function Home() {
 			<div className={styles.daoCard}>
 				<img src="MjI1ODI2NTAx-removebg-preview.png" />
 				<p className={styles.daoName}>Scientific paper review dao</p>
-				<p className={styles.daoInfo}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet et mauris auctor gravida. Ut ut lorem nec justo aliquet convallis eu sed dolor. Integer cursus consequat risus eget semper. Etiam condimentum.</p>
+				<p className={styles.daoInfo}>Group of science specialists who assess the quality of papers and vote for their originality, validity and significance. Researchers have to submit their papers for the review here, which are first approved by an editor and then reviewed by the DAO members.</p>
 				{isMember ? <button className={styles.btn} onClick={handleLeaveDao}>Leave Dao</button> : <button className={styles.btn} onClick={handleJoinDao}>Join Dao</button>}
 			</div>
 			<div className={styles.memberList}>

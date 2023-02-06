@@ -5,6 +5,7 @@ import contractAbi from "../artifacts/contracts/PeerReview.sol/PeerReview.json";
 import web3modal from "web3modal";
 import { ethers } from "ethers";
 import Link from 'next/link';
+import { useRouter } from "next/router";
 
 const Articles = () => {
 
@@ -13,6 +14,8 @@ const Articles = () => {
     }, [])
 
     const [proposals, setProposals] = useState([])
+
+    const router = useRouter();
 
     async function getContract() {
         const modal = new web3modal();
@@ -52,24 +55,28 @@ const Articles = () => {
         const proposals = [];
         const numProposals = await getNumArticlesInDAO()
         for (let i = 0; i < numProposals; i++) {
-            const proposal = await fetchArticlesById(i + 1);
+            const proposal = await fetchArticlesById(i + 1)
             proposals.push(proposal);
         }
         setProposals(proposals);
     }
 
-    async function viewArticles() {
+    async function viewArticles(prop) {
         const contract = await getContract()
-        const txn = await contract.obtainViewship();
+        const price = ethers.utils.parseUnits("1", "ether")
+        const txn = await contract.obtainViewship({value: price})
+        await txn.wait();
+        router.push(`https://gateway.lighthouse.storage/ipfs/${prop.cid}`);
     }
+
 
     function ProposalCard(prop) {
         return (
             <div className={styles.card}>
                 <p>name: {prop.name}</p>
                 <p>author: {prop.author}</p>
-                <button className={styles.articleButton}><Link target="_blank" rel="noreferrer" href={`https://gateway.lighthouse.storage/ipfs/${prop.cid}`}>Check article</Link></button>
-                {/* <button className={styles.cardBtn} onClick={() => viewArticles()}> Obtain Viewship </button> */}
+                {/* <button className={styles.articleButton}><Link target="_blank" rel="noreferrer" href={`https://gateway.lighthouse.storage/ipfs/${prop.cid}`}>Check article</Link></button> */}
+                <button className={styles.cardBtn} onClick={() => viewArticles(prop)}> Get View </button>
             </div>
         )
     }
