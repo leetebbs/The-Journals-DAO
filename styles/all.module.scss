@@ -187,6 +187,7 @@ $purple: rgb(241, 211, 250);
   }
 
   .card {
+    font-size: 95%;
     padding: 1rem;
     padding-top: 0.1rem;
     background-color: #323235;
@@ -301,6 +302,7 @@ $purple: rgb(241, 211, 250);
     background-color: #323235;
     border-radius: 4px;
     width: 32%;
+    font-size: 95%;
 
     .cardBtns {
       display: flex;
