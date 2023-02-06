@@ -55,7 +55,7 @@ $purple: rgb(241, 211, 250);
   }
 
   .daoCard {
-    margin-left:5rem;
+    margin-left: 2rem;
     border: 0.5px solid $pinkColor;
     width: 26rem;
     padding: 0 1rem 1.5rem 1.5em;
@@ -92,7 +92,7 @@ $purple: rgb(241, 211, 250);
     top: 180px;
     left: 1000px;
     height: 500px;
-    width: 450px;
+    width: 500px;
     background-color: #232324;
     border-radius: 4px;
     padding: 1rem 2rem 1rem 2rem;
@@ -205,7 +205,7 @@ $purple: rgb(241, 211, 250);
 
   .cardContainer {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     flex-wrap: wrap;
   }
 }
@@ -226,7 +226,7 @@ $purple: rgb(241, 211, 250);
     margin-top: 3rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
     flex-wrap: wrap;
   }
 
@@ -289,7 +289,7 @@ $purple: rgb(241, 211, 250);
   .cardContainer {
     margin-top: 3rem;
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     flex-wrap: wrap;
   }
 
