@@ -1,4 +1,4 @@
-# The Journal Dao
+# The Journals Dao
 
 This project allows the free flow of information in a controlled, private and decentralised manner. At the moment it takes an age for proposers to get peer reviewed, sometimes months or maybe years. We make this process the shortest by implementing it over a blockchain.
 
