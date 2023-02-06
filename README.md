@@ -50,6 +50,6 @@ This project allows the free flow of information in a controlled, private and de
 
 <br/>
 
-[Video explanation]()
+[Video explanation](https://youtu.be/4QWNT3-TPuM)
 <br/>
 <br/>
